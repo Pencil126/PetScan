@@ -87,13 +87,12 @@ struct AddPetView: View {
                 .padding(.top, 2)
         }
         .onTapGesture {
-            // 在這裡添加您的新增寵物邏輯
-            print("新增寵物")
+            //action
         }
     }
 }
 
-// 預覽
+
 struct SelectPetView_Previews: PreviewProvider {
     static var previews: some View {
         SelectPetView(userPets: Pets(petList: [
