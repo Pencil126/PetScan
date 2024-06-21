@@ -15,6 +15,7 @@
 		D615D37F2C244B77007039EE /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = D615D37E2C244B77007039EE /* FirebaseFunctions */; };
 		D615D3812C244B7D007039EE /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D615D3802C244B7D007039EE /* FirebaseMessaging */; };
 		D615D3832C252724007039EE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D615D3822C252724007039EE /* GoogleService-Info.plist */; };
+		D615D3862C257244007039EE /* UserAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D615D3852C257244007039EE /* UserAuthViewModel.swift */; };
 		D6DBAB8C2C2435A2005F854E /* .gitattributes in Resources */ = {isa = PBXBuildFile; fileRef = D6DBAB8B2C2435A2005F854E /* .gitattributes */; };
 		F72370B02C1B1032002199B1 /* PetList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72370AF2C1B1032002199B1 /* PetList.swift */; };
 		F72370B22C1B1050002199B1 /* SelectPetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72370B12C1B1050002199B1 /* SelectPetView.swift */; };
@@ -29,6 +30,7 @@
 		D606CF892C16F74100CD44D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D606CF8C2C16F74100CD44D9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D615D3822C252724007039EE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D615D3852C257244007039EE /* UserAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuthViewModel.swift; sourceTree = "<group>"; };
 		D6DBAB8B2C2435A2005F854E /* .gitattributes */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitattributes; sourceTree = "<group>"; };
 		F72370AF2C1B1032002199B1 /* PetList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetList.swift; sourceTree = "<group>"; };
 		F72370B12C1B1050002199B1 /* SelectPetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPetView.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 		D606CF842C16F74000CD44D9 /* PetScan */ = {
 			isa = PBXGroup;
 			children = (
+				D615D3842C257218007039EE /* ViewModel */,
 				D606CF852C16F74000CD44D9 /* PetScanApp.swift */,
 				D6DBAB8B2C2435A2005F854E /* .gitattributes */,
 				D606CF872C16F74000CD44D9 /* ContentView.swift */,
@@ -97,6 +100,14 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D615D3842C257218007039EE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D615D3852C257244007039EE /* UserAuthViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -179,6 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D615D3862C257244007039EE /* UserAuthViewModel.swift in Sources */,
 				D606CF882C16F74000CD44D9 /* ContentView.swift in Sources */,
 				F72370B02C1B1032002199B1 /* PetList.swift in Sources */,
 				F72370B22C1B1050002199B1 /* SelectPetView.swift in Sources */,
