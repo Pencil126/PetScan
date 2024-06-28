@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import FirebaseFirestore
 
 struct HomeView: View {
     let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
+//    let user: [String: Any]
+    @StateObject var viewModel = FirestoreViewModel()
+    
     var body: some View {
         ZStack{
             backgroundColor
@@ -28,20 +32,20 @@ struct HomeView: View {
                 VStack{
                     Circle()
                         .frame(width: 100)
-                    Text("小黃")
+                    Text(viewModel.currentPetName())
                         .font(.system(size: 32))
                     
                     VStack(alignment: .leading){
                         HStack{
                             Text("品種：   ")
-                            Text("黃金獵犬")
+                            Text(viewModel.currentPetType())
                         }
                         .font(.system(size: 24))
                         .padding(.vertical,2)
                         
                         HStack{
                             Text("體重：   ")
-                            Text("29")
+                            Text(viewModel.currentPetWeight())
                             Text("kg")
                         }
                         .font(.system(size: 24))
