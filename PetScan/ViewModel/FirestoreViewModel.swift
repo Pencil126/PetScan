@@ -45,27 +45,6 @@ class FirestoreViewModel: ObservableObject {
         }
     }
     
-    //    func fetchPetInfo() {
-    //        db.collection("PetInfo").addSnapshotListener { (querySnapshot, error) in
-    //            guard let documents = querySnapshot?.documents else {
-    //                print("No documents: \(error!)")
-    //                return
-    //            }
-    //
-    //            self.pets = documents.compactMap { (queryDocumentSnapshot) -> PetInfo? in
-    //                print("Mapping document: \(queryDocumentSnapshot.documentID)")
-    //                let data = queryDocumentSnapshot.data()
-    //                // Using the helper functions to convert Firestore data into app's data structures
-    //                let petID = data["petID"] as? Int
-    //                let name = data["name"] as? String
-    //                let type = data["type"] as? String
-    //                let weight = data["weight"] as? Float
-    //
-    //                return PetInfo(name: name ?? "", petID: petID ?? 1, type: type ?? "", weight: weight ?? 1)
-    //            }
-    //        }
-    //    }
-    
     func fetchPetInfo(by petID: [Int]) {
         db.collection("PetInfo").whereField("petID", in: petID).addSnapshotListener { (querySnapshot, error) in
             if let error = error {
@@ -92,9 +71,11 @@ class FirestoreViewModel: ObservableObject {
                 let name = data["name"] as? String
                 let type = data["type"] as? String
                 let weight = data["weight"] as? Double
+                let food = (data["food"] as? [[String: Any]])?.map { Food(timestamp: $0["timestamp"] as? Date ?? Date(), value: $0["value"] as? Double ?? 0.0) } ?? []
+                let drink = (data["drink"] as? [[String: Any]])?.map { Drink(timestamp: $0["timestamp"] as? Date ?? Date(), value: $0["value"] as? Double ?? 0.0) } ?? []
                 
-                print("petID: \(String(describing: petID)), name: \(String(describing: name)), type: \(String(describing: type)), weight: \(String(describing: weight))")
-                return PetInfo(name: name ?? "", petID: petID ?? 1, type: type ?? "", weight: weight ?? 0.0)
+                print("petID: \(String(describing: petID)), name: \(String(describing: name)), type: \(String(describing: type)), weight: \(String(describing: weight)), food: \(food), drink: \(drink)")
+                return PetInfo(name: name ?? "", petID: petID ?? 1, type: type ?? "", weight: weight ?? 0.0, food: food, drink: drink)
             }
             if !self.pets.isEmpty {
                 self.setCurrentPet(pet: self.pets[0])
@@ -111,7 +92,7 @@ class FirestoreViewModel: ObservableObject {
         if let name = currentPet?.name {
             return name  // 轉換為整數以去除小數點，然後轉換為字符串
         } else {
-            return "Error"
+            return "Loading"
         }
     }
     
@@ -119,7 +100,7 @@ class FirestoreViewModel: ObservableObject {
         if let type = currentPet?.type {
             return type  // 轉換為整數以去除小數點，然後轉換為字符串
         } else {
-            return "Error"
+            return "Loading"
         }
     }
     
@@ -127,7 +108,7 @@ class FirestoreViewModel: ObservableObject {
         if let weight = currentPet?.weight {
             return (String(weight))  // 轉換為整數以去除小數點，然後轉換為字符串
         } else {
-            return "Error"
+            return "loading"
         }
     }
 }

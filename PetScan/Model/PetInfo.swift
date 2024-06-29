@@ -14,6 +14,8 @@ struct PetInfo: Codable {
     var petID: Int
     var type: String
     var weight: Double
+    var food: [Food]
+    var drink: [Drink]
     
     enum CodingKeys: CodingKey {
         case id
@@ -21,5 +23,27 @@ struct PetInfo: Codable {
         case petID
         case type
         case weight
+        case food
+        case drink
+    }
+}
+
+struct Food: Codable {
+    var timestamp: Date
+    var value: Double
+    
+    enum CodingKeys: CodingKey {
+        case timestamp
+        case value
+    }
+}
+
+struct Drink: Codable {
+    var timestamp: Date
+    var value: Double
+    
+    enum CodingKeys: CodingKey {
+        case timestamp
+        case value
     }
 }
