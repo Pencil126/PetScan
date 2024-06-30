@@ -22,6 +22,7 @@
 		D615D38F2C2C0E07007039EE /* PetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D615D38E2C2C0E07007039EE /* PetInfo.swift */; };
 		D615D3912C2C1FF9007039EE /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D615D3902C2C1FF9007039EE /* FirebaseFirestoreSwift */; };
 		D615D3932C2FCCC9007039EE /* PetScanDog.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D615D3922C2FCCC9007039EE /* PetScanDog.mlmodel */; };
+		D615D3952C3016F2007039EE /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D615D3942C3016F2007039EE /* FirebaseStorage */; };
 		D6DBAB8C2C2435A2005F854E /* .gitattributes in Resources */ = {isa = PBXBuildFile; fileRef = D6DBAB8B2C2435A2005F854E /* .gitattributes */; };
 		F72370B02C1B1032002199B1 /* PetList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72370AF2C1B1032002199B1 /* PetList.swift */; };
 		F72370B22C1B1050002199B1 /* SelectPetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72370B12C1B1050002199B1 /* SelectPetView.swift */; };
@@ -58,6 +59,7 @@
 				D615D3882C2587B3007039EE /* FirebaseFirestore in Frameworks */,
 				D615D37D2C244B59007039EE /* FirebaseAuth in Frameworks */,
 				D615D37F2C244B77007039EE /* FirebaseFunctions in Frameworks */,
+				D615D3952C3016F2007039EE /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +158,7 @@
 				D615D3802C244B7D007039EE /* FirebaseMessaging */,
 				D615D3872C2587B3007039EE /* FirebaseFirestore */,
 				D615D3902C2C1FF9007039EE /* FirebaseFirestoreSwift */,
+				D615D3942C3016F2007039EE /* FirebaseStorage */,
 			);
 			productName = PetScan;
 			productReference = D606CF822C16F74000CD44D9 /* PetScan.app */;
@@ -475,6 +478,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = D6DBAB8F2C244285005F854E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		D615D3942C3016F2007039EE /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D6DBAB8F2C244285005F854E /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

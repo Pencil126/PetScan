@@ -14,6 +14,7 @@ struct PetInfo: Codable {
     var petID: Int
     var type: String
     var weight: Double
+    var imageURL: String
     var food: [Food]
     var drink: [Drink]
     
@@ -23,6 +24,7 @@ struct PetInfo: Codable {
         case petID
         case type
         case weight
+        case imageURL
         case food
         case drink
     }

@@ -30,8 +30,20 @@ struct HomeView: View {
                 
                 //寵物資料
                 VStack{
-                    Circle()
-                        .frame(width: 100)
+                    RemoteImageView(url: viewModel.currentPetImageURL())
+//                    if let url = viewModel.currentPetImageURL() {
+//                        RemoteImageView(url: url)
+//                            .frame(width: 100, height: 100)
+//                    }else{
+//                        Image("image 4")
+//                        Circle()
+//                            .frame(width: 100)
+//                    }
+//                    Image("image 4")
+//                        .frame(width: 100)
+//                    Circle()
+//                        .frame(width: 100)
+                    
                     Text(viewModel.currentPetName())
                         .font(.system(size: 32))
                     
@@ -96,6 +108,51 @@ struct HomeViewButtonStyle: ButtonStyle{
             
     }
 }
+
+struct RemoteImageView: View {
+    let url: URL?
+    @State private var image: Image?
+    
+    var body: some View {
+            Group {
+                if let image = image {
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                } else {
+                    // 加载失败或URL无效时显示的占位图
+                    Circle()
+                }
+            }
+            .onChange(of: url) {
+                loadImage()
+            }
+            .frame(width: 100, height: 100) // 确保有固定的frame
+        }
+    func loadImage() {
+        guard let url = url else {
+            print("URL is nil")
+            return
+        }
+        print("Starting to load image from URL: \(url)")
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let error = error {
+                print("Error loading image: \(error.localizedDescription)")
+                return
+            }
+            guard let data = data, let uiImage = UIImage(data: data) else {
+                print("Data could not be converted to UIImage")
+                return
+            }
+            DispatchQueue.main.async {
+                print("Image loaded and ready to display")
+                self.image = Image(uiImage: uiImage)
+            }
+        }.resume()
+    }
+}
+
 
 #Preview {
     HomeView()

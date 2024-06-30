@@ -71,11 +71,12 @@ class FirestoreViewModel: ObservableObject {
                 let name = data["name"] as? String
                 let type = data["type"] as? String
                 let weight = data["weight"] as? Double
+                let imageURL = data["imageURL"] as? String
                 let food = (data["food"] as? [[String: Any]])?.map { Food(timestamp: $0["timestamp"] as? Date ?? Date(), value: $0["value"] as? Double ?? 0.0) } ?? []
                 let drink = (data["drink"] as? [[String: Any]])?.map { Drink(timestamp: $0["timestamp"] as? Date ?? Date(), value: $0["value"] as? Double ?? 0.0) } ?? []
                 
-                print("petID: \(String(describing: petID)), name: \(String(describing: name)), type: \(String(describing: type)), weight: \(String(describing: weight)), food: \(food), drink: \(drink)")
-                return PetInfo(name: name ?? "", petID: petID ?? 1, type: type ?? "", weight: weight ?? 0.0, food: food, drink: drink)
+                print("petID: \(String(describing: petID)), name: \(String(describing: name)), type: \(String(describing: type)), weight: \(String(describing: weight)), img: \(String(describing: imageURL)), food: \(food), drink: \(drink)")
+                return PetInfo(name: name ?? "", petID: petID ?? 1, type: type ?? "", weight: weight ?? 0.0, imageURL: imageURL ?? "", food: food, drink: drink)
             }
             if !self.pets.isEmpty {
                 self.setCurrentPet(pet: self.pets[0])
@@ -111,4 +112,14 @@ class FirestoreViewModel: ObservableObject {
             return "loading"
         }
     }
+    
+    func currentPetImageURL() -> URL? {
+        if let pet = currentPet {
+            print("URL is valid: \(pet.imageURL)")
+            return URL(string: pet.imageURL)
+        } else {
+            return nil
+        }
+    }
+
 }
