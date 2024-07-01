@@ -12,7 +12,7 @@ struct FoodAndDrinkView: View {
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
     @State var date = Date()
     @State var amountOfWater: String = ""
-    @State var weekOrDay: String = "week"
+    @State var drinkOrFood: String = "drink"
     @State var nameOfFood: String = ""
     @State var amountOfFood: String = ""
     
@@ -26,12 +26,15 @@ struct FoodAndDrinkView: View {
             VStack {
                 Text("食物與喝水")
                     .font(.system(size: 24))
-                    .padding(.top, 10)
+                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 30, trailing: 0))
                 
                 // 寵物資料
-                VStack(spacing: 5) {
+                VStack(spacing: 0){
+                    
+                    drinkOrFoodSelectionButtons
+                    
                     Form{
-                        Section(header: Text("喝水量").font(.system(size: 20)).frame(width: 351, alignment: .leading).foregroundStyle(.white)){
+                        Section{
                             DatePicker("日期", selection: $date, displayedComponents: .date)
                                 
                         }
@@ -42,41 +45,124 @@ struct FoodAndDrinkView: View {
                         }
                         .frame(height: 30)
                         
-                        Section {
-                            TextField("喝水量", text: $amountOfWater)
+                        if drinkOrFood == "drink"{
+                            Section {
+                                TextField("喝水量", text: $amountOfWater)
+                            }
+                            .frame(height: 30)
                         }
-                        .frame(height: 30)
-                        
-                    }
-                    .listSectionSpacing(15)
-                    .frame(height: 225)
-                    .scrollContentBackground(.hidden)
-                    .scrollDisabled(true)
-                    
-                    weekOrDaySelectionButtons
-                    
-                    RoundedRectangle(cornerRadius: 25)
-                        .frame(width: 351, height: 215)
-                        .padding(EdgeInsets(top: 6, leading: 0, bottom: 0, trailing: 0))
-                    
-                    Form {
-                        Section(header: Text("食物紀錄").font(.system(size: 20)).frame(width: 351, alignment: .leading).foregroundStyle(.white)) {
-                            Picker(selection: $nameOfFood) {
-                                Text("食物")
-                                Text("某食物")
-                            } label: {
-                                Text("食物名稱")
-                                    .foregroundStyle(themeColor.opacity(0.5))
+                        else if drinkOrFood == "food"{
+                            Section {
+                                Picker(selection: $nameOfFood) {
+                                    Text("食物")
+                                    Text("某食物")
+                                } label: {
+                                    Text("食物名稱")
+                                        .foregroundStyle(themeColor.opacity(0.5))
+                                }
+                            }
+                            
+                            Section {
+                                TextField("克數", text: $amountOfFood)
                             }
                         }
                         
-                        Section {
-                            TextField("克數", text: $amountOfFood)
-                        }
+                        
                     }
                     .listSectionSpacing(15)
+                    .frame(height: drinkOrFood == "drink" ? 210 : 270)
                     .scrollContentBackground(.hidden)
                     .scrollDisabled(true)
+                    
+                    Button{
+                        //action
+                    }label: {
+                        Text("+ 新增")
+                            .foregroundStyle(.white)
+                            .frame(width: 362,height: 65)
+                            .font(.system(size: 24))
+                            .background(Color(red: 103/255, green: 118/255, blue: 121/255))
+                            .clipShape(RoundedRectangle(cornerRadius: 30))
+                    }
+                    
+                    if drinkOrFood == "drink"{
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 10)
+                                .frame(width: 359,height: 193)
+                                .foregroundStyle(backgroundColor)
+                            VStack {
+                                HStack(spacing: 0) {
+                                    Text("距離達標還差")
+                                        .font(.system(size: 24))
+                                        .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
+                                        .frame(width: 127, height: 80,alignment: .bottom)
+                                    
+                                    Text("130")
+                                        .font(.system(size: 64))
+                                        .fontWeight(.black)
+                                        .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
+                                        .frame(height: 100,alignment: .bottom)
+                                    
+                                    Text("ml")
+                                        .font(.system(size: 32))
+                                        .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
+                                        .frame(height: 80,alignment: .bottom)
+                                }
+                                VStack(alignment: .trailing){
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .frame(width: 312,height: 35)
+                                        .foregroundStyle(.white)
+                                    Text("一天需要喝水量為385-770ml")
+                                        .font(.system(size: 16))
+                                        .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
+                                }
+                                .padding(.bottom,20)
+                            }
+                        }
+                        .padding(EdgeInsets(top: 30, leading: 0, bottom: 20, trailing: 0))
+                    }
+                    else if drinkOrFood == "food"{
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 10)
+                                .frame(width: 359,height: 120)
+                                .foregroundStyle(backgroundColor)
+                            VStack {
+                                HStack(spacing: 0) {
+                                    Text("距離達標還差")
+                                        .font(.system(size: 24))
+                                        .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
+                                        .frame(width: 127, height: 80,alignment: .bottom)
+                                    
+                                    Text("50")
+                                        .font(.system(size: 64))
+                                        .fontWeight(.black)
+                                        .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
+                                        .frame(height: 110,alignment: .bottom)
+                                    
+                                    Text("大卡")
+                                        .font(.system(size: 24))
+                                        .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
+                                        .frame(height: 80,alignment: .bottom)
+                                }
+                            }
+                            .padding(.bottom,20)
+                        }
+                        .padding(EdgeInsets(top: 30, leading: 0, bottom: 20, trailing: 0))
+                    }
+                    
+                    Button{
+                        //action
+                    }label: {
+                        Text("歷史紀錄")
+                            .foregroundStyle(.white)
+                            .frame(width: 362,height: 65)
+                            .font(.system(size: 24))
+                            .background(Color(red: 103/255, green: 118/255, blue: 121/255))
+                            .clipShape(RoundedRectangle(cornerRadius: 30))
+                    }
+                    
+                    
+                    
                 }
                 
                 Spacer()
@@ -84,38 +170,40 @@ struct FoodAndDrinkView: View {
         }
     }
     
-    private var weekOrDaySelectionButtons: some View {
+    private var drinkOrFoodSelectionButtons: some View {
         HStack(spacing: 0) {
             Button {
-                weekOrDay = "week"
+                drinkOrFood = "drink"
             } label: {
                 ZStack {
                     UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 10, bottomLeading: 10))
                         .frame(width: 175.5, height: 37)
-                        .foregroundStyle(weekOrDay == "week" ? Color(red: 103/255, green: 118/255, blue: 121/255) : .white)
+                        .foregroundStyle(drinkOrFood == "drink" ? Color(red: 103/255, green: 118/255, blue: 121/255) : .white)
                     HStack{
-                        Text("週")
+                        Text("喝水量")
                             .font(.system(size: 20))
-                            .foregroundStyle(weekOrDay == "week" ? .white : Color(red: 103/255, green: 118/255, blue: 121/255))
+                            .frame(width: 70,alignment: .leading)
+                            .foregroundStyle(drinkOrFood == "drink" ? .white : Color(red: 103/255, green: 118/255, blue: 121/255))
                         Spacer()
-                            .frame(width: 140)
+                            .frame(width: 50)
                     }
                 }
             }
             
             Button {
-                weekOrDay = "day"
+                drinkOrFood = "food"
             } label: {
                 ZStack {
                     UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(bottomTrailing: 10, topTrailing: 10))
                         .frame(width: 175.5, height: 37)
-                        .foregroundStyle(weekOrDay == "day" ? Color(red: 103/255, green: 118/255, blue: 121/255) : .white)
+                        .foregroundStyle(drinkOrFood == "food" ? Color(red: 103/255, green: 118/255, blue: 121/255) : .white)
                     HStack{
-                        Text("日")
+                        Text("食物")
                             .font(.system(size: 20))
-                            .foregroundStyle(weekOrDay == "day" ? .white : Color(red: 103/255, green: 118/255, blue: 121/255))
+                            .frame(width: 70,alignment: .leading)
+                            .foregroundStyle(drinkOrFood == "food" ? .white : Color(red: 103/255, green: 118/255, blue: 121/255))
                         Spacer()
-                            .frame(width: 140)
+                            .frame(width: 70)
                     }
                 }
             }
