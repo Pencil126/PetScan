@@ -26,7 +26,7 @@ struct FoodAndDrinkView: View {
             VStack {
                 Text("食物與喝水")
                     .font(.system(size: 24))
-                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 30, trailing: 0))
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 10, trailing: 0))
                 
                 // 寵物資料
                 VStack(spacing: 0){
@@ -212,5 +212,5 @@ struct FoodAndDrinkView: View {
 }
 
 #Preview {
-    FoodAndDrinkView()
+    TabBarView()
 }
