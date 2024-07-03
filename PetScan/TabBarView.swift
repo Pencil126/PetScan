@@ -10,15 +10,18 @@ import SwiftUI
 struct TabBarView: View {
     let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
+    @State public var tabViewSelection = 2
+    
     var body: some View {
-        TabView{
+        TabView(selection: $tabViewSelection){
             FoodAndDrinkView()
                 .tabItem {
                     VStack{
-                        Image(systemName: "house")
+                        Image(systemName: "cross.fill")
                         Text("皮膚病檢測")
                     }
                 }
+                .tag(0)
             FoodAndDrinkView()
                 .tabItem {
                     VStack{
@@ -26,6 +29,7 @@ struct TabBarView: View {
                         Text("食物、飲水")
                     }
                 }
+                .tag(1)
             FoodAndDrinkView()
                 .tabItem {
                     VStack{
@@ -33,6 +37,7 @@ struct TabBarView: View {
                         Text("主頁")
                     }
                 }
+                .tag(2)
             FoodAndDrinkView()
                 .tabItem {
                     VStack{
@@ -40,6 +45,7 @@ struct TabBarView: View {
                         Text("常識問答")
                     }
                 }
+                .tag(3)
             FoodAndDrinkView()
                 .tabItem {
                     VStack{
@@ -47,8 +53,10 @@ struct TabBarView: View {
                         Text("設定")
                     }
                 }
+                .tag(4)
         }
-        .accentColor(themeColor)
+        .accentColor(Color(red: 207/255, green: 116/255, blue: 65/255))
+        .tableStyle(.automatic)
     }
 }
 
