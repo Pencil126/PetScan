@@ -22,9 +22,6 @@ struct HomeView: View {
                 themeColor
                     .frame(height: 650)
                 VStack{
-                    Text("主頁")
-                        .font(.system(size: 24))
-                    
                     Spacer()
                         .frame(height: 45)
                     
@@ -93,6 +90,13 @@ struct HomeView: View {
                     Spacer()
                 }
             }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("主頁")
+                        .font(.system(size: 24))
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
