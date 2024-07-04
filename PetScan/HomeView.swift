@@ -15,81 +15,83 @@ struct HomeView: View {
     @StateObject var viewModel = FirestoreViewModel()
     
     var body: some View {
-        ZStack{
-            backgroundColor
-                .ignoresSafeArea()
-            themeColor
-                .frame(height: 650)
-            VStack{
-                Text("主頁")
-                    .font(.system(size: 24))
-                
-                Spacer()
-                    .frame(height: 45)
-                
-                //寵物資料
+        NavigationStack{
+            ZStack{
+                backgroundColor
+                    .ignoresSafeArea()
+                themeColor
+                    .frame(height: 650)
                 VStack{
-                    RemoteImageView(url: viewModel.currentPetImageURL())
-//                    if let url = viewModel.currentPetImageURL() {
-//                        RemoteImageView(url: url)
-//                            .frame(width: 100, height: 100)
-//                    }else{
-//                        Image("image 4")
-//                        Circle()
-//                            .frame(width: 100)
-//                    }
-//                    Image("image 4")
-//                        .frame(width: 100)
-//                    Circle()
-//                        .frame(width: 100)
-                    
-                    Text(viewModel.currentPetName())
-                        .font(.system(size: 32))
-                    
-                    VStack(alignment: .leading){
-                        HStack{
-                            Text("品種：   ")
-                            Text(viewModel.currentPetType())
-                        }
+                    Text("主頁")
                         .font(.system(size: 24))
-                        .padding(.vertical,2)
+                    
+                    Spacer()
+                        .frame(height: 45)
+                    
+                    //寵物資料
+                    VStack{
+                        RemoteImageView(url: viewModel.currentPetImageURL())
+    //                    if let url = viewModel.currentPetImageURL() {
+    //                        RemoteImageView(url: url)
+    //                            .frame(width: 100, height: 100)
+    //                    }else{
+    //                        Image("image 4")
+    //                        Circle()
+    //                            .frame(width: 100)
+    //                    }
+    //                    Image("image 4")
+    //                        .frame(width: 100)
+    //                    Circle()
+    //                        .frame(width: 100)
                         
-                        HStack{
-                            Text("體重：   ")
-                            Text(viewModel.currentPetWeight())
-                            Text("kg")
+                        Text(viewModel.currentPetName())
+                            .font(.system(size: 32))
+                        
+                        VStack(alignment: .leading){
+                            HStack{
+                                Text("品種：   ")
+                                Text(viewModel.currentPetType())
+                            }
+                            .font(.system(size: 24))
+                            .padding(.vertical,2)
+                            
+                            HStack{
+                                Text("體重：   ")
+                                Text(viewModel.currentPetWeight())
+                                Text("kg")
+                            }
+                            .font(.system(size: 24))
+                            .padding(.vertical,2)
                         }
-                        .font(.system(size: 24))
-                        .padding(.vertical,2)
+                        
+                    }
+                    .foregroundStyle(.white)
+                    
+                    //功能按鍵區塊
+                    VStack{
+                        NavigationLink(destination: FoodAndDrinkView()){ //需修改
+                            Text("食物與喝水量歷史紀錄")
+                        }
+                        .buttonStyle(HomeViewButtonStyle())
+                        
+                        Button("藥物歷史紀錄"){
+                            //action
+                        }
+                        .buttonStyle(HomeViewButtonStyle())
+                        
+                        Button("健康檢查紀錄"){
+                            //action
+                        }
+                        .buttonStyle(HomeViewButtonStyle())
+                        
+                        Button("皮膚病檢測結果歷史紀錄"){
+                            //action
+                        }
+                        .buttonStyle(HomeViewButtonStyle())
                     }
                     
+                    Spacer()
                 }
-                .foregroundStyle(.white)
-                
-                //功能按鍵區塊
-                VStack{
-                    Button("食物與喝水量歷史紀錄"){
-                        //action
-                    }
-                    .buttonStyle(HomeViewButtonStyle())
-                    
-                    Button("藥物歷史紀錄"){
-                        //action
-                    }
-                    .buttonStyle(HomeViewButtonStyle())
-                    
-                    Button("健康檢查紀錄"){
-                        //action
-                    }
-                    .buttonStyle(HomeViewButtonStyle())
-                    
-                    Button("皮膚病檢測結果歷史紀錄"){
-                        //action
-                    }
-                    .buttonStyle(HomeViewButtonStyle())
-                }
-                
-                Spacer()
             }
         }
     }

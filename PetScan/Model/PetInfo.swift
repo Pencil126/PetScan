@@ -32,10 +32,12 @@ struct PetInfo: Codable {
 
 struct Food: Codable {
     var timestamp: Date
+    var name: String
     var value: Double
     
     enum CodingKeys: CodingKey {
         case timestamp
+        case name
         case value
     }
 }

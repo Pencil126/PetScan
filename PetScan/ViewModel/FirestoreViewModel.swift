@@ -13,6 +13,9 @@ import FirebaseAuth
 class FirestoreViewModel: ObservableObject {
     @Published var pets: [PetInfo] = []
     @Published var currentPet: PetInfo?
+    @Published var currentPetObject: String = ""
+    
+    @Published var totalFoodValue: Double = 0.0
     
     private var db = Firestore.firestore()
     
@@ -65,6 +68,7 @@ class FirestoreViewModel: ObservableObject {
             
             self.pets = documents.compactMap { (queryDocumentSnapshot) -> PetInfo? in
                 print("Mapping document: \(queryDocumentSnapshot.documentID)")
+                self.currentPetObject = queryDocumentSnapshot.documentID
                 let data = queryDocumentSnapshot.data()
                 // Using the helper functions to convert Firestore data into app's data structures
                 let petID = data["petID"] as? Int
@@ -72,7 +76,7 @@ class FirestoreViewModel: ObservableObject {
                 let type = data["type"] as? String
                 let weight = data["weight"] as? Double
                 let imageURL = data["imageURL"] as? String
-                let food = (data["food"] as? [[String: Any]])?.map { Food(timestamp: $0["timestamp"] as? Date ?? Date(), value: $0["value"] as? Double ?? 0.0) } ?? []
+                let food = (data["food"] as? [[String: Any]])?.map { Food(timestamp: $0["timestamp"] as? Date ?? Date(), name: $0["name"] as? String ?? "", value: $0["value"] as? Double ?? 0.0) } ?? []
                 let drink = (data["drink"] as? [[String: Any]])?.map { Drink(timestamp: $0["timestamp"] as? Date ?? Date(), value: $0["value"] as? Double ?? 0.0) } ?? []
                 
                 print("petID: \(String(describing: petID)), name: \(String(describing: name)), type: \(String(describing: type)), weight: \(String(describing: weight)), img: \(String(describing: imageURL)), food: \(food), drink: \(drink)")
@@ -122,4 +126,55 @@ class FirestoreViewModel: ObservableObject {
         }
     }
 
+    func addFoodRecord(date: Date, name: String, value: Double) {
+        let ref = db.collection("PetInfo").document(currentPetObject)
+        let newRecord: [String: Any] = [
+                "time": Timestamp(date: date),
+                "name": name,
+                "value": value
+            ]
+        
+        ref.updateData([
+            "food": FieldValue.arrayUnion([newRecord])
+        ]) { error in
+            if let error = error {
+                print("Error updating document: \(error)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+    }
+    
+    func todayFoodValue() {
+        let ref = db.collection("PetInfo").document(currentPetObject).collection("food")
+        let today = Calendar.current.startOfDay(for: Date())
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
+        let limit = 300.0
+        ref.whereField("time", isLessThanOrEqualTo: today).whereField("time", isLessThan: tomorrow).getDocuments { (snapshot, error) in
+            if let error = error {
+                print("todayFoodValue Error getting documents: \(error)")
+            } else if let snapshot = snapshot {
+                var totalValue = snapshot.documents.reduce(0) { (sum, document) -> Double in
+                    let data = document.data()
+                    if let entries = data["entries"] as? [[String: Any]] {
+                        // 累加所有符合今天日期的 value
+                        return entries.reduce(sum) { (subSum, entry) -> Double in
+                            if let timestamp = entry["time"] as? Timestamp,
+                               let value = entry["value"] as? Double,
+                               Calendar.current.isDate(timestamp.dateValue(), inSameDayAs: today) {
+                                return subSum + value
+                            }
+                            return subSum
+                        }
+                    }
+                    return sum
+                }
+                print("Total value for today is: \(totalValue)")
+                totalValue = limit - totalValue
+                DispatchQueue.main.async {
+                    self.totalFoodValue = totalValue
+                }
+            }
+        }
+    }
 }

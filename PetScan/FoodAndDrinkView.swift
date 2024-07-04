@@ -10,6 +10,7 @@ import SwiftUI
 struct FoodAndDrinkView: View {
     let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
+    @StateObject var viewModel = FirestoreViewModel()
     @State var date = Date()
     @State var amountOfWater: String = ""
     @State var drinkOrFood: String = "drink"
@@ -26,7 +27,7 @@ struct FoodAndDrinkView: View {
             VStack {
                 Text("食物與喝水")
                     .font(.system(size: 24))
-                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 15, trailing: 0))
+                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 30, trailing: 0))
                 
                 // 寵物資料
                 VStack(spacing: 0){
@@ -64,6 +65,7 @@ struct FoodAndDrinkView: View {
                             
                             Section {
                                 TextField("克數", text: $amountOfFood)
+                                    .keyboardType(.decimalPad)
                             }
                         }
                         
@@ -75,7 +77,11 @@ struct FoodAndDrinkView: View {
                     .scrollDisabled(true)
                     
                     Button{
-                        //action
+                        if drinkOrFood == "drink" {
+                            
+                        } else if drinkOrFood == "food" {
+                            viewModel.addFoodRecord(date: date, name: nameOfFood, value: Double(amountOfFood) ?? 0)
+                        }
                     }label: {
                         Text("+ 新增")
                             .foregroundStyle(.white)
@@ -133,7 +139,7 @@ struct FoodAndDrinkView: View {
                                         .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
                                         .frame(width: 127, height: 80,alignment: .bottom)
                                     
-                                    Text("50")
+                                    Text("\(viewModel.totalFoodValue, specifier: "%.1f")")
                                         .font(.system(size: 64))
                                         .fontWeight(.black)
                                         .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
@@ -208,9 +214,14 @@ struct FoodAndDrinkView: View {
                 }
             }
         }
+        .onAppear{
+            if viewModel.currentPetObject != "" {
+                viewModel.todayFoodValue()
+            }
+        }
     }
 }
 
 #Preview {
-    TabBarView()
+    FoodAndDrinkView()
 }
