@@ -77,8 +77,8 @@ class FirestoreViewModel: ObservableObject {
                 let type = data["type"] as? String
                 let weight = data["weight"] as? Double
                 let imageURL = data["imageURL"] as? String
-                let food = (data["food"] as? [[String: Any]])?.map { Food(timestamp: $0["timestamp"] as? Date ?? Date(), name: $0["name"] as? String ?? "", value: $0["value"] as? Double ?? 0.0) } ?? []
-                let drink = (data["drink"] as? [[String: Any]])?.map { Drink(timestamp: $0["timestamp"] as? Date ?? Date(), value: $0["value"] as? Double ?? 0.0) } ?? []
+                let food = (data["food"] as? [[String: Any]])?.map { Food(timestamp: $0["time"] as? Date ?? Date(), name: $0["name"] as? String ?? "", value: $0["value"] as? Double ?? 0.0) } ?? []
+                let drink = (data["drink"] as? [[String: Any]])?.map { Drink(timestamp: $0["time"] as? Date ?? Date(), value: $0["value"] as? Double ?? 0.0) } ?? []
                 
                 print("petID: \(String(describing: petID)), name: \(String(describing: name)), type: \(String(describing: type)), weight: \(String(describing: weight)), img: \(String(describing: imageURL)), food: \(food), drink: \(drink)")
                 return PetInfo(name: name ?? "", petID: petID ?? 1, type: type ?? "", weight: weight ?? 0.0, imageURL: imageURL ?? "", food: food, drink: drink)
@@ -154,7 +154,7 @@ class FirestoreViewModel: ObservableObject {
         let tomorrow = Calendar.current.date(byAdding: .hour, value: 8, to: tomorrowGMT)!
         print("Today: \(today), Tomorrow: \(tomorrow)")
         let limit = 300.0
-        ref.whereField("time", isLessThanOrEqualTo: today).whereField("time", isLessThan: tomorrow).getDocuments { (snapshot, error) in
+        ref.whereField("time", isGreaterThanOrEqualTo: today).whereField("time", isLessThan: tomorrow).getDocuments { (snapshot, error) in
             if let error = error {
                 print("todayFoodValue Error getting documents: \(error)")
             } else if let snapshot = snapshot {

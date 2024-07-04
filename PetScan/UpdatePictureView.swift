@@ -7,6 +7,8 @@
 
 import SwiftUI
 import PhotosUI
+import Vision
+import CoreML
 
 struct UpdatePictureView: View {
     @State private var selectedImage: UIImage?
@@ -17,6 +19,22 @@ struct UpdatePictureView: View {
     let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
     let selectedColor: Color = Color(red: 103/255, green: 118/255, blue: 121/255)
+    
+    @State private var image: Image?
+    @State private var showingImagePicker = false
+    @State private var inputImage: UIImage?
+    @State private var classificationLabel = "Tap 'Choose Picture' to select an image."
+    
+    var model: VNCoreMLModel? = {
+            do {
+                // 请确保这里的模型名称与您的文件名一致
+                let config = MLModelConfiguration()
+                return try VNCoreMLModel(for: PetScanDog(configuration: config).model)
+            } catch {
+                print("Failed to load the model: \(error)")
+                return nil
+            }
+        }()
     
     var body: some View {
         NavigationStack {
@@ -104,6 +122,48 @@ struct UpdatePictureView: View {
             }
         }
     }
+    
+    func loadImage() {
+        guard let inputImage = inputImage else { return }
+        image = Image(uiImage: inputImage)
+        classifyImage(inputImage)
+    }
+    
+    func classifyImage(_ image: UIImage) {
+        guard let model = model else {
+            classificationLabel = "Model is not loaded."
+            return
+        }
+        guard let ciImage = CIImage(image: image) else {
+            fatalError("Couldn't convert UIImage to CIImage")
+        }
+        
+        let request = VNCoreMLRequest(model: model) { (request, error) in
+            guard let results = request.results as? [VNClassificationObservation] else {
+                self.classificationLabel = "Unable to classify image."
+                return
+            }
+            
+            if let firstResult = results.first {
+                DispatchQueue.main.async {
+                    let confidenceString = String(format: "%.2f", firstResult.confidence * 100)
+                    self.classificationLabel = "Classification: \(firstResult.identifier)\nConfidence: \(confidenceString)%"
+                }
+            }
+        }
+
+        let handler = VNImageRequestHandler(ciImage: ciImage)
+        DispatchQueue.global(qos: .userInteractive).async {
+            do {
+                try handler.perform([request])
+            } catch {
+                DispatchQueue.main.async {
+                    self.classificationLabel = "Failed to perform classification.\n\(error.localizedDescription)"
+                }
+            }
+        }
+    }
+
 }
 
 struct ImagePicker: UIViewControllerRepresentable {
