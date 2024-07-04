@@ -77,7 +77,7 @@ struct FoodAndDrinkView: View {
                         
                         Button{
                             if drinkOrFood == "drink" {
-                                
+                                viewModel.addDrinkRecord(date: date, value: Int(amountOfWater) ?? 0)
                             } else if drinkOrFood == "food" {
                                 viewModel.addFoodRecord(date: date, name: nameOfFood, value: Double(amountOfFood) ?? 0)
                             }
@@ -88,6 +88,10 @@ struct FoodAndDrinkView: View {
                                 .font(.system(size: 24))
                                 .background(Color(red: 103/255, green: 118/255, blue: 121/255))
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
+                                .onAppear{
+                                    viewModel.todayFoodValue()
+                                    viewModel.todayDrinkValue()
+                                }
                         }
                         
                         if drinkOrFood == "drink"{
@@ -102,11 +106,14 @@ struct FoodAndDrinkView: View {
                                             .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
                                             .frame(width: 127, height: 80,alignment: .bottom)
                                         
-                                        Text("130")
+                                        Text("\(viewModel.totalDrinkValue)")
                                             .font(.system(size: 64))
                                             .fontWeight(.black)
                                             .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
                                             .frame(height: 100,alignment: .bottom)
+                                            .onAppear{
+                                                viewModel.todayDrinkValue()
+                                            }
                                         
                                         Text("ml")
                                             .font(.system(size: 32))
@@ -114,9 +121,14 @@ struct FoodAndDrinkView: View {
                                             .frame(height: 80,alignment: .bottom)
                                     }
                                     VStack(alignment: .trailing){
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .frame(width: 312,height: 35)
+                                        HStack {
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .frame(width: 312*CGFloat(((385-viewModel.totalDrinkValue)/385)),height: 35)
+                                            .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .frame(width: 312*CGFloat((viewModel.totalDrinkValue/385)),height: 35)
                                             .foregroundStyle(.white)
+                                        }
                                         Text("一天需要喝水量為385-770ml")
                                             .font(.system(size: 16))
                                             .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
@@ -138,13 +150,16 @@ struct FoodAndDrinkView: View {
                                             .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
                                             .frame(width: 127, height: 80,alignment: .bottom)
                                         
-                                        Text("\(viewModel.totalFoodValue, specifier: "%.1f")")
+                                        Text("\(viewModel.totalFoodValue, specifier: "%.0f")")
                                             .font(.system(size: 64))
                                             .fontWeight(.black)
                                             .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
                                             .frame(height: 110,alignment: .bottom)
+                                            .onAppear{
+                                                viewModel.todayFoodValue()
+                                            }
                                         
-                                        Text("大卡")
+                                        Text("公克")
                                             .font(.system(size: 24))
                                             .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
                                             .frame(height: 80,alignment: .bottom)
@@ -219,11 +234,6 @@ struct FoodAndDrinkView: View {
                             .frame(width: 70)
                     }
                 }
-            }
-        }
-        .onAppear{
-            if viewModel.currentPetObject != "" {
-                viewModel.todayFoodValue()
             }
         }
     }

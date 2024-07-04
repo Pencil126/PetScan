@@ -71,18 +71,19 @@ struct HomeView: View {
                         }
                         .buttonStyle(HomeViewButtonStyle())
                         
-                        Button("藥物歷史紀錄"){
-                            //action
+                        NavigationLink(destination: FoodAndDrinkView()){ //需修改
+                            Text("藥物歷史紀錄")
                         }
                         .buttonStyle(HomeViewButtonStyle())
                         
+
                         NavigationLink(destination: HealthCheckRecordView()){ 
                             Text("健康檢查紀錄")
                         }
                         .buttonStyle(HomeViewButtonStyle())
                         
-                        Button("皮膚病檢測結果歷史紀錄"){
-                            //action
+                        NavigationLink(destination: FoodAndDrinkView()){ //需修改
+                            Text("皮膚病檢測結果歷史紀錄")
                         }
                         .buttonStyle(HomeViewButtonStyle())
                     }
