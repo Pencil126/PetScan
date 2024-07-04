@@ -86,8 +86,6 @@ struct HomeView: View {
                         }
                         .buttonStyle(HomeViewButtonStyle())
                     }
-                    
-                    Spacer()
                 }
             }
             .toolbar {
