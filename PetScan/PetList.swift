@@ -19,4 +19,3 @@ struct Pet: Identifiable {
 struct Pets {
     var petList: [Pet]
 }
-
