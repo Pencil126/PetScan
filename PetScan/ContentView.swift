@@ -15,7 +15,7 @@ struct ContentView: View {
     
     var body: some View {
         if viewModel.isSignedIn {
-            HomeView()
+            TabBarView(tabViewSelection: 2)
         } else {
             VStack {
                 TextField("Email", text: $email)
