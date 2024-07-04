@@ -148,8 +148,11 @@ class FirestoreViewModel: ObservableObject {
     
     func todayFoodValue() {
         let ref = db.collection("PetInfo").document(currentPetObject).collection("food")
-        let today = Calendar.current.startOfDay(for: Date())
-        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
+        let todayGMT = Calendar.current.startOfDay(for: Date())
+        let tomorrowGMT = Calendar.current.date(byAdding: .day, value: 1, to: todayGMT)!
+        let today = Calendar.current.date(byAdding: .hour, value: 8, to: todayGMT)!
+        let tomorrow = Calendar.current.date(byAdding: .hour, value: 8, to: tomorrowGMT)!
+        print("Today: \(today), Tomorrow: \(tomorrow)")
         let limit = 300.0
         ref.whereField("time", isLessThanOrEqualTo: today).whereField("time", isLessThan: tomorrow).getDocuments { (snapshot, error) in
             if let error = error {
@@ -199,9 +202,12 @@ class FirestoreViewModel: ObservableObject {
     
     func todayDrinkValue() {
         let ref = db.collection("PetInfo").document(currentPetObject).collection("drink")
-        let today = Calendar.current.startOfDay(for: Date())
-        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
-        let limit = 300
+        let todayGMT = Calendar.current.startOfDay(for: Date())
+        let tomorrowGMT = Calendar.current.date(byAdding: .day, value: 1, to: todayGMT)!
+        let today = Calendar.current.date(byAdding: .hour, value: 8, to: todayGMT)!
+        let tomorrow = Calendar.current.date(byAdding: .hour, value: 8, to: tomorrowGMT)!
+        print("Today: \(today), Tomorrow: \(tomorrow)")
+        let limit = 385
         ref.whereField("time", isLessThanOrEqualTo: today).whereField("time", isLessThan: tomorrow).getDocuments { (snapshot, error) in
             if let error = error {
                 print("todayDrinkValue Error getting documents: \(error)")

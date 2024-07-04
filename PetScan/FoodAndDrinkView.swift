@@ -88,6 +88,10 @@ struct FoodAndDrinkView: View {
                                 .font(.system(size: 24))
                                 .background(Color(red: 103/255, green: 118/255, blue: 121/255))
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
+                                .onAppear{
+                                    viewModel.todayFoodValue()
+                                    viewModel.todayDrinkValue()
+                                }
                         }
                         
                         if drinkOrFood == "drink"{
@@ -117,9 +121,14 @@ struct FoodAndDrinkView: View {
                                             .frame(height: 80,alignment: .bottom)
                                     }
                                     VStack(alignment: .trailing){
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .frame(width: 312,height: 35)
+                                        HStack {
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .frame(width: 312*CGFloat(((385-viewModel.totalDrinkValue)/385)),height: 35)
+                                            .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
+                                            RoundedRectangle(cornerRadius: 10)
+                                                .frame(width: 312*CGFloat((viewModel.totalDrinkValue/385)),height: 35)
                                             .foregroundStyle(.white)
+                                        }
                                         Text("一天需要喝水量為385-770ml")
                                             .font(.system(size: 16))
                                             .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
@@ -141,7 +150,7 @@ struct FoodAndDrinkView: View {
                                             .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
                                             .frame(width: 127, height: 80,alignment: .bottom)
                                         
-                                        Text("\(viewModel.totalFoodValue, specifier: "%.1f")")
+                                        Text("\(viewModel.totalFoodValue, specifier: "%.0f")")
                                             .font(.system(size: 64))
                                             .fontWeight(.black)
                                             .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
