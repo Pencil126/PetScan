@@ -14,7 +14,7 @@ struct TabBarView: View {
     
     var body: some View {
         TabView(selection: $tabViewSelection){
-            FoodAndDrinkView()
+            UpdatePictureView()
                 .tabItem {
                     VStack{
                         Image(systemName: "cross.fill")
@@ -30,7 +30,7 @@ struct TabBarView: View {
                     }
                 }
                 .tag(1)
-            FoodAndDrinkView()
+            HomeView()
                 .tabItem {
                     VStack{
                         Image(systemName: "house")

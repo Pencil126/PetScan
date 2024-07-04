@@ -23,7 +23,6 @@ struct HomeView: View {
             VStack{
                 Text("主頁")
                     .font(.system(size: 24))
-                    .padding(.top,10)
                 
                 Spacer()
                     .frame(height: 45)
