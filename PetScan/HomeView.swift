@@ -71,7 +71,7 @@ struct HomeView: View {
                         }
                         .buttonStyle(HomeViewButtonStyle())
                         
-                        NavigationLink(destination: FoodAndDrinkView()){ //需修改
+                        NavigationLink(destination: MedicialHistroyView()){ //需修改
                             Text("藥物歷史紀錄")
                         }
                         .buttonStyle(HomeViewButtonStyle())
