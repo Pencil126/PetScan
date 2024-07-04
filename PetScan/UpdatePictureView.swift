@@ -26,6 +26,7 @@ struct UpdatePictureView: View {
                 themeColor
                     .frame(height: 650)
                 VStack {
+                    Spacer()
                     if let selectedImage = selectedImage {
                         Button{
                             isPhotoPickerPresented = true
@@ -33,41 +34,45 @@ struct UpdatePictureView: View {
                             Image(uiImage: selectedImage)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 362, height: 448)
+                                .frame(width: 362, height: 362)
                                 .padding(EdgeInsets(top: 30, leading: 0, bottom: 30, trailing: 0))
                         }
                     } else {
-                        Rectangle()
-                            .frame(width: 362, height: 448)
-                            .foregroundStyle(.white)
-                            .padding(EdgeInsets(top: 30, leading: 0, bottom: 30, trailing: 0))
-                            .overlay(
-                                VStack {
-                                    Button{
-                                        isCameraPickerPresented = true
-                                    }label:{
-                                        Text("開啟相機")
-                                            .foregroundStyle(.white)
-                                            .frame(width: 200, height: 45)
-                                            .font(.system(size: 24))
-                                            .background(selectedColor)
-                                            .clipShape(RoundedRectangle(cornerRadius: 30))
-                                    }
-                                    .padding()
-                                    
-                                    Button{
-                                        isPhotoPickerPresented = true
-                                    }label: {
-                                        Text("上傳圖片")
-                                            .foregroundStyle(.white)
-                                            .frame(width: 200, height: 45)
-                                            .font(.system(size: 24))
-                                            .background(selectedColor)
-                                            .clipShape(RoundedRectangle(cornerRadius: 30))
-                                    }
-                                    .padding()
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 25.0)
+                                .foregroundStyle(.white)
+                                .frame(width: 362, height: 362)
+                                .padding(EdgeInsets(top: 30, leading: 0, bottom: 30, trailing: 0))
+                            Image("App")
+                                .resizable()
+                                .frame(width: 300,height: 300)
+                                .opacity(0.2)
+                            VStack {
+                                Button{
+                                    isCameraPickerPresented = true
+                                }label:{
+                                    Text("開啟相機")
+                                        .foregroundStyle(.white)
+                                        .frame(width: 200, height: 45)
+                                        .font(.system(size: 24))
+                                        .background(selectedColor)
+                                        .clipShape(RoundedRectangle(cornerRadius: 30))
                                 }
-                            )
+                                .padding()
+                                
+                                Button{
+                                    isPhotoPickerPresented = true
+                                }label: {
+                                    Text("上傳圖片")
+                                        .foregroundStyle(.white)
+                                        .frame(width: 200, height: 45)
+                                        .font(.system(size: 24))
+                                        .background(selectedColor)
+                                        .clipShape(RoundedRectangle(cornerRadius: 30))
+                                }
+                                .padding()
+                            }
+                        }
                     }
                     
                     NavigationLink {
@@ -101,43 +106,44 @@ struct UpdatePictureView: View {
     }
 }
 
-#Preview {
-    TabBarView(tabViewSelection: 0)
-}
-
 struct ImagePicker: UIViewControllerRepresentable {
     var sourceType: UIImagePickerController.SourceType
     @Binding var selectedImage: UIImage?
-
+    
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.delegate = context.coordinator
         picker.sourceType = sourceType
         return picker
     }
-
+    
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
-
+    
     func makeCoordinator() -> Coordinator {
         Coordinator(self)
     }
-
+    
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
         let parent: ImagePicker
-
+        
         init(_ parent: ImagePicker) {
             self.parent = parent
         }
-
+        
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let image = info[.originalImage] as? UIImage {
                 parent.selectedImage = image
             }
             picker.dismiss(animated: true)
         }
-
+        
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             picker.dismiss(animated: true)
         }
     }
+}
+
+
+#Preview {
+    TabBarView(tabViewSelection: 0)
 }

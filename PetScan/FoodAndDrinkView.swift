@@ -229,6 +229,6 @@ struct FoodAndDrinkView: View {
     }
 }
 
-#Preview {
-    FoodAndDrinkView()
+#Preview{
+    TabBarView(tabViewSelection: 1)
 }

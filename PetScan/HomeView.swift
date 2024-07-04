@@ -159,6 +159,6 @@ struct RemoteImageView: View {
 }
 
 
-#Preview {
-    HomeView()
+#Preview{
+    TabBarView(tabViewSelection: 2)
 }
