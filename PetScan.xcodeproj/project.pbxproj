@@ -24,7 +24,6 @@
 		D615D3932C2FCCC9007039EE /* PetScanDog.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D615D3922C2FCCC9007039EE /* PetScanDog.mlmodel */; };
 		D615D3952C3016F2007039EE /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D615D3942C3016F2007039EE /* FirebaseStorage */; };
 		D6DBAB8C2C2435A2005F854E /* .gitattributes in Resources */ = {isa = PBXBuildFile; fileRef = D6DBAB8B2C2435A2005F854E /* .gitattributes */; };
-		F72370B02C1B1032002199B1 /* PetList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72370AF2C1B1032002199B1 /* PetList.swift */; };
 		F72370B22C1B1050002199B1 /* SelectPetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72370B12C1B1050002199B1 /* SelectPetView.swift */; };
 		F776208D2C36AC1D0094024D /* DiseaseOutcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F776208C2C36AC1D0094024D /* DiseaseOutcomeView.swift */; };
 		F776208F2C36BCD00094024D /* HospitalMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F776208E2C36BCD00094024D /* HospitalMapView.swift */; };
@@ -50,7 +49,6 @@
 		D615D38E2C2C0E07007039EE /* PetInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetInfo.swift; sourceTree = "<group>"; };
 		D615D3922C2FCCC9007039EE /* PetScanDog.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = PetScanDog.mlmodel; sourceTree = "<group>"; };
 		D6DBAB8B2C2435A2005F854E /* .gitattributes */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitattributes; sourceTree = "<group>"; };
-		F72370AF2C1B1032002199B1 /* PetList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetList.swift; sourceTree = "<group>"; };
 		F72370B12C1B1050002199B1 /* SelectPetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPetView.swift; sourceTree = "<group>"; };
 		F776208C2C36AC1D0094024D /* DiseaseOutcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiseaseOutcomeView.swift; sourceTree = "<group>"; };
 		F776208E2C36BCD00094024D /* HospitalMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HospitalMapView.swift; sourceTree = "<group>"; };
@@ -114,7 +112,6 @@
 				F77620922C36DFED0094024D /* HealthCheckRecordView.swift */,
 				F776208E2C36BCD00094024D /* HospitalMapView.swift */,
 				F7ED45BD2C22F10D0096115B /* HomeView.swift */,
-				F72370AF2C1B1032002199B1 /* PetList.swift */,
 				F72370B12C1B1050002199B1 /* SelectPetView.swift */,
 				D615D3922C2FCCC9007039EE /* PetScanDog.mlmodel */,
 				D606CF892C16F74100CD44D9 /* Assets.xcassets */,
@@ -245,7 +242,6 @@
 				D615D38F2C2C0E07007039EE /* PetInfo.swift in Sources */,
 				D606CF882C16F74000CD44D9 /* ContentView.swift in Sources */,
 				D615D38A2C259625007039EE /* FirestoreViewModel.swift in Sources */,
-				F72370B02C1B1032002199B1 /* PetList.swift in Sources */,
 				D615D3932C2FCCC9007039EE /* PetScanDog.mlmodel in Sources */,
 				F7A7F12E2C369EC1007575D6 /* AskSimpleQuestionsView.swift in Sources */,
 				F72370B22C1B1050002199B1 /* SelectPetView.swift in Sources */,
