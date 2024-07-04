@@ -100,16 +100,16 @@ struct AskSimpleQuestionsView: View {
                             QuestionRow(question: "是否有接觸草叢", isOn: $isOn8)
                         }
                     }
-                    
-                    Button(action: {
-                        // 在此處添加按鈕操作
-                    }) {
+                    NavigationLink {
+                        DiseaseOutcomeView()
+                    } label: {
                         Text("查看檢測結果")
                             .foregroundStyle(.white)
                             .frame(width: 362,height: 65)
                             .font(.system(size: 24))
                             .background(Color(red: 103/255, green: 118/255, blue: 121/255))
                             .clipShape(RoundedRectangle(cornerRadius: 30))
+
                     }
                     
                     Spacer()

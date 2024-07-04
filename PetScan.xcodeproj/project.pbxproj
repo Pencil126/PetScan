@@ -26,6 +26,7 @@
 		D6DBAB8C2C2435A2005F854E /* .gitattributes in Resources */ = {isa = PBXBuildFile; fileRef = D6DBAB8B2C2435A2005F854E /* .gitattributes */; };
 		F72370B02C1B1032002199B1 /* PetList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72370AF2C1B1032002199B1 /* PetList.swift */; };
 		F72370B22C1B1050002199B1 /* SelectPetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72370B12C1B1050002199B1 /* SelectPetView.swift */; };
+		F776208D2C36AC1D0094024D /* DiseaseOutcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F776208C2C36AC1D0094024D /* DiseaseOutcomeView.swift */; };
 		F7A7F12E2C369EC1007575D6 /* AskSimpleQuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A7F12D2C369EC1007575D6 /* AskSimpleQuestionsView.swift */; };
 		F7ED45BE2C22F10D0096115B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7ED45BD2C22F10D0096115B /* HomeView.swift */; };
 		F7F5DBEB2C25448C001294A3 /* FoodAndDrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F5DBEA2C25448C001294A3 /* FoodAndDrinkView.swift */; };
@@ -48,6 +49,7 @@
 		D6DBAB8B2C2435A2005F854E /* .gitattributes */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitattributes; sourceTree = "<group>"; };
 		F72370AF2C1B1032002199B1 /* PetList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetList.swift; sourceTree = "<group>"; };
 		F72370B12C1B1050002199B1 /* SelectPetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPetView.swift; sourceTree = "<group>"; };
+		F776208C2C36AC1D0094024D /* DiseaseOutcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiseaseOutcomeView.swift; sourceTree = "<group>"; };
 		F7A7F12D2C369EC1007575D6 /* AskSimpleQuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskSimpleQuestionsView.swift; sourceTree = "<group>"; };
 		F7ED45BD2C22F10D0096115B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		F7F5DBEA2C25448C001294A3 /* FoodAndDrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodAndDrinkView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				F7F5DBEE2C3545CE001294A3 /* TabBarView.swift */,
 				F7F5DBF62C3649C7001294A3 /* UpdatePictureView.swift */,
 				F7A7F12D2C369EC1007575D6 /* AskSimpleQuestionsView.swift */,
+				F776208C2C36AC1D0094024D /* DiseaseOutcomeView.swift */,
 				F72370AF2C1B1032002199B1 /* PetList.swift */,
 				F72370B12C1B1050002199B1 /* SelectPetView.swift */,
 				F7ED45BD2C22F10D0096115B /* HomeView.swift */,
@@ -236,6 +239,7 @@
 				D615D3932C2FCCC9007039EE /* PetScanDog.mlmodel in Sources */,
 				F7A7F12E2C369EC1007575D6 /* AskSimpleQuestionsView.swift in Sources */,
 				F72370B22C1B1050002199B1 /* SelectPetView.swift in Sources */,
+				F776208D2C36AC1D0094024D /* DiseaseOutcomeView.swift in Sources */,
 				F7ED45BE2C22F10D0096115B /* HomeView.swift in Sources */,
 				D606CF862C16F74000CD44D9 /* PetScanApp.swift in Sources */,
 				D615D38D2C2C0D85007039EE /* UsersPet.swift in Sources */,
