@@ -38,7 +38,7 @@ struct TabBarView: View {
                     }
                 }
                 .tag(2)
-            FoodAndDrinkView()
+            Text("Question View")
                 .tabItem {
                     VStack{
                         Image(systemName: "questionmark")
@@ -46,7 +46,7 @@ struct TabBarView: View {
                     }
                 }
                 .tag(3)
-            FoodAndDrinkView()
+            Text("Setting View")
                 .tabItem {
                     VStack{
                         Image(systemName: "gearshape")

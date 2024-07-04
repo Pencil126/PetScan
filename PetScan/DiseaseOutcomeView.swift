@@ -31,9 +31,9 @@ struct DiseaseOutcomeView: View {
                     Text("請儘速就醫")
                         .font(.system(size: 48))
                         .foregroundStyle(.white)
-                    Button(action: {
-                        // 在此處添加按鈕操作
-                    }) {
+                    NavigationLink{
+                        HospitalMapView()
+                    }label: {
                         Text("獸醫院地圖")
                             .foregroundStyle(.white)
                             .frame(width: 362,height: 65)
@@ -55,5 +55,5 @@ struct DiseaseOutcomeView: View {
 }
 
 #Preview {
-    DiseaseOutcomeView()
+    TabBarView(tabViewSelection: 0)
 }
