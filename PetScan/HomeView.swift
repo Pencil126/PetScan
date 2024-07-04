@@ -76,8 +76,8 @@ struct HomeView: View {
                         }
                         .buttonStyle(HomeViewButtonStyle())
                         
-                        Button("健康檢查紀錄"){
-                            //action
+                        NavigationLink(destination: HealthCheckRecordView()){ 
+                            Text("健康檢查紀錄")
                         }
                         .buttonStyle(HomeViewButtonStyle())
                         
