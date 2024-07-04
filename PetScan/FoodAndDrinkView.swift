@@ -23,7 +23,7 @@ struct FoodAndDrinkView: View {
                 backgroundColor
                     .ignoresSafeArea()
                 themeColor
-                    .frame(height: 650)
+                    .frame(height: 710)
                 
                 VStack {
                     Spacer()
@@ -124,7 +124,7 @@ struct FoodAndDrinkView: View {
                                     .padding(.bottom,20)
                                 }
                             }
-                            .padding(EdgeInsets(top: 30, leading: 0, bottom: 20, trailing: 0))
+                            .padding(EdgeInsets(top: 50, leading: 0, bottom: 20, trailing: 0))
                         }
                         else if drinkOrFood == "food"{
                             ZStack{

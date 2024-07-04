@@ -19,7 +19,7 @@ struct HospitalMapView: View {
                 backgroundColor
                     .ignoresSafeArea()
                 themeColor
-                    .frame(height: 650)
+                    .frame(height: 710)
                 VStack {
                     SearchBar(text: $searchBarText)
                     MapView()
@@ -119,7 +119,7 @@ struct SearchBar: View {
         HStack {
             
             TextField("Search ...", text: $text)
-                .frame(width: 300)
+                .frame(width: 295)
                 .padding(7)
                 .padding(.horizontal, 25)
                 .background(Color(.systemGray6))
@@ -139,7 +139,8 @@ struct SearchBar: View {
                                     .foregroundColor(.gray)
                                     .padding(.trailing, 8)
                             }
-                        }else{
+                        }
+                        else{
                             Image(systemName: "mic")
                                 .foregroundColor(.gray)
                                 .padding(.trailing, 8)
@@ -150,24 +151,10 @@ struct SearchBar: View {
                 .onTapGesture {
                     self.isEditing = true
                 }
-            
-            if isEditing {
-                Button(action: {
-                    self.isEditing = false
-                    self.text = ""
-                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                    
-                }) {
-                    Text("Cancel")
-                        .foregroundStyle(.white)
-                }
-                .padding(.trailing, 10)
-                .transition(.move(edge: .trailing))
-            }
         }
     }
 }
 
 #Preview {
-    TabBarView(tabViewSelection: 3)
+    TabBarView(tabViewSelection: 0)
 }
