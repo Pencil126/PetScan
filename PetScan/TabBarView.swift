@@ -38,7 +38,7 @@ struct TabBarView: View {
                     }
                 }
                 .tag(2)
-            Text("Question View")
+            QuestionsView()
                 .tabItem {
                     VStack{
                         Image(systemName: "questionmark")
