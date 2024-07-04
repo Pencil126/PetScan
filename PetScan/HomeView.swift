@@ -20,7 +20,7 @@ struct HomeView: View {
                 backgroundColor
                     .ignoresSafeArea()
                 themeColor
-                    .frame(height: 650)
+                    .frame(height: 710)
                 VStack{
                     Spacer()
                         .frame(height: 45)
@@ -76,7 +76,8 @@ struct HomeView: View {
                         }
                         .buttonStyle(HomeViewButtonStyle())
                         
-                        NavigationLink(destination: FoodAndDrinkView()){ //需修改
+
+                        NavigationLink(destination: HealthCheckRecordView()){ 
                             Text("健康檢查紀錄")
                         }
                         .buttonStyle(HomeViewButtonStyle())
@@ -86,8 +87,6 @@ struct HomeView: View {
                         }
                         .buttonStyle(HomeViewButtonStyle())
                     }
-                    
-                    Spacer()
                 }
             }
             .toolbar {

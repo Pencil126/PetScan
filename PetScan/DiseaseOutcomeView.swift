@@ -18,7 +18,7 @@ struct DiseaseOutcomeView: View {
                 backgroundColor
                     .ignoresSafeArea()
                 themeColor
-                    .frame(height: 650)
+                    .frame(height: 710)
                 VStack{
                     Rectangle()
                         .frame(width: 362,height: 263)
