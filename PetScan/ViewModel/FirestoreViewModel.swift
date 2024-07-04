@@ -13,9 +13,10 @@ import FirebaseAuth
 class FirestoreViewModel: ObservableObject {
     @Published var pets: [PetInfo] = []
     @Published var currentPet: PetInfo?
-    @Published var currentPetObject: String = ""
+    @Published var currentPetObject: String = "dKPmxyl4fr3k9d5hCFoW" //Why 進入新頁面會不見
     
     @Published var totalFoodValue: Double = 0.0
+    @Published var totalDrinkValue: Int = 0
     
     private var db = Firestore.firestore()
     
@@ -173,6 +174,58 @@ class FirestoreViewModel: ObservableObject {
                 totalValue = limit - totalValue
                 DispatchQueue.main.async {
                     self.totalFoodValue = totalValue
+                }
+            }
+        }
+    }
+    
+    func addDrinkRecord(date: Date, value: Int) {
+        let ref = db.collection("PetInfo").document(currentPetObject)
+        let newRecord: [String: Any] = [
+                "time": Timestamp(date: date),
+                "value": value
+            ]
+        
+        ref.updateData([
+            "drink": FieldValue.arrayUnion([newRecord])
+        ]) { error in
+            if let error = error {
+                print("Error updating document: \(error)")
+            } else {
+                print("Document successfully updated")
+            }
+        }
+    }
+    
+    func todayDrinkValue() {
+        let ref = db.collection("PetInfo").document(currentPetObject).collection("drink")
+        let today = Calendar.current.startOfDay(for: Date())
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
+        let limit = 300
+        ref.whereField("time", isLessThanOrEqualTo: today).whereField("time", isLessThan: tomorrow).getDocuments { (snapshot, error) in
+            if let error = error {
+                print("todayDrinkValue Error getting documents: \(error)")
+            } else if let snapshot = snapshot {
+                print("Documents fetched successfully")
+                var totalValue = snapshot.documents.reduce(0) { (sum, document) -> Int in
+                    let data = document.data()
+                    if let entries = data["entries"] as? [[String: Any]] {
+                        // 累加所有符合今天日期的 value
+                        return entries.reduce(sum) { (subSum, entry) -> Int in
+                            if let timestamp = entry["time"] as? Timestamp,
+                               let value = entry["value"] as? Int,
+                               Calendar.current.isDate(timestamp.dateValue(), inSameDayAs: today) {
+                                return subSum + value
+                            }
+                            return subSum
+                        }
+                    }
+                    return sum
+                }
+                print("Total value for today is: \(totalValue)")
+                totalValue = limit - totalValue
+                DispatchQueue.main.async {
+                    self.totalDrinkValue = totalValue
                 }
             }
         }
