@@ -167,8 +167,8 @@ struct FoodAndDrinkView: View {
                             .padding(EdgeInsets(top: 30, leading: 0, bottom: 20, trailing: 0))
                         }
                         
-                        Button{
-                            //action
+                        NavigationLink{
+                            DrinkRecordView()
                         }label: {
                             Text("歷史紀錄")
                                 .foregroundStyle(.white)
