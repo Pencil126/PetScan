@@ -23,7 +23,7 @@ struct QuestionsView: View {
                 VStack{
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)
-                            .frame(width: 360,height: 258)
+                            .frame(width: 350,height: 258)
                             .foregroundStyle(.white)
                         HStack(alignment: .top){
                             Text("Q.")
@@ -31,7 +31,7 @@ struct QuestionsView: View {
                             Text("下列何者是狗狗可以吃的東西？")
                                 .font(.system(size: 32))
                         }
-                        .frame(width: 340,alignment: .center)
+                        .frame(width: 330,alignment: .center)
                         if selectedAnser == 3{
                             Circle()
                                 .frame(width: 180)
@@ -57,22 +57,22 @@ struct QuestionsView: View {
                         ZStack{
                             if selectedAnser == 1{
                                 RoundedRectangle(cornerRadius: 30)
-                                    .frame(width: 360, height: 70)
+                                    .frame(width: 350, height: 70)
                                     .foregroundStyle(.red)
                             }
                             else if selectedAnser == 2{
                                 RoundedRectangle(cornerRadius: 30)
-                                    .frame(width: 360, height: 70)
+                                    .frame(width: 350, height: 70)
                                     .foregroundStyle(Color(red: 226/255, green: 233/255, blue: 233/255))
                             }
                             else if selectedAnser == 3{
                                 RoundedRectangle(cornerRadius: 30)
-                                    .frame(width: 360, height: 70)
+                                    .frame(width: 350, height: 70)
                                     .foregroundStyle(Color(red: 226/255, green: 233/255, blue: 233/255))
                             }
                             else {
                                 RoundedRectangle(cornerRadius: 30)
-                                    .frame(width: 360, height: 70)
+                                    .frame(width: 350, height: 70)
                                     .foregroundStyle(selectedColor)
                             }
                             HStack{
@@ -97,22 +97,22 @@ struct QuestionsView: View {
                         ZStack{
                             if selectedAnser == 1{
                                 RoundedRectangle(cornerRadius: 30)
-                                    .frame(width: 360, height: 70)
+                                    .frame(width: 350, height: 70)
                                     .foregroundStyle(Color(red: 226/255, green: 233/255, blue: 233/255))
                             }
                             else if selectedAnser == 2{
                                 RoundedRectangle(cornerRadius: 30)
-                                    .frame(width: 360, height: 70)
+                                    .frame(width: 350, height: 70)
                                     .foregroundStyle(.red)
                             }
                             else if selectedAnser == 3{
                                 RoundedRectangle(cornerRadius: 30)
-                                    .frame(width: 360, height: 70)
+                                    .frame(width: 350, height: 70)
                                     .foregroundStyle(Color(red: 226/255, green: 233/255, blue: 233/255))
                             }
                             else {
                                 RoundedRectangle(cornerRadius: 30)
-                                    .frame(width: 360, height: 70)
+                                    .frame(width: 350, height: 70)
                                     .foregroundStyle(selectedColor)
                             }
                             HStack{
@@ -137,22 +137,22 @@ struct QuestionsView: View {
                         ZStack{
                             if selectedAnser == 1{
                                 RoundedRectangle(cornerRadius: 30)
-                                    .frame(width: 360, height: 70)
+                                    .frame(width: 350, height: 70)
                                     .foregroundStyle(.green)
                             }
                             else if selectedAnser == 2{
                                 RoundedRectangle(cornerRadius: 30)
-                                    .frame(width: 360, height: 70)
+                                    .frame(width: 350, height: 70)
                                     .foregroundStyle(.green)
                             }
                             else if selectedAnser == 3{
                                 RoundedRectangle(cornerRadius: 30)
-                                    .frame(width: 360, height: 70)
+                                    .frame(width: 350, height: 70)
                                     .foregroundStyle(selectedColor)
                             }
                             else {
                                 RoundedRectangle(cornerRadius: 30)
-                                    .frame(width: 360, height: 70)
+                                    .frame(width: 350, height: 70)
                                     .foregroundStyle(selectedColor)
                             }
                             HStack{

@@ -73,7 +73,7 @@ struct AskSimpleQuestionsView: View {
                         
                         Divider()
                             .overlay(Color.white)
-                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                            .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
 
                         Group {
                             QuestionRow(question: "皮膚發紅和腫脹", isOn: $isOn1)
@@ -93,7 +93,7 @@ struct AskSimpleQuestionsView: View {
                         
                         Divider()
                             .overlay(Color.white)
-                            .padding(EdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10))
+                            .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
 
                         Group {
                             QuestionRow(question: "環境是否太潮濕", isOn: $isOn6)
@@ -106,7 +106,7 @@ struct AskSimpleQuestionsView: View {
                     } label: {
                         Text("查看檢測結果")
                             .foregroundStyle(.white)
-                            .frame(width: 362,height: 65)
+                            .frame(width: 350,height: 65)
                             .font(.system(size: 24))
                             .background(Color(red: 103/255, green: 118/255, blue: 121/255))
                             .clipShape(RoundedRectangle(cornerRadius: 30))
@@ -140,7 +140,7 @@ struct QuestionRow: View {
             Toggle("", isOn: $isOn)
                 .toggleStyle(CustomToggle())
         }
-        .padding(.horizontal)
+        .frame(width: 350)
     }
 }
 

@@ -24,7 +24,7 @@ struct DiseaseOutcomeView: View {
                     Image(uiImage: selectedImage!)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 362, height: 263)
+                        .frame(width: 350, height: 263)
                         .padding()
                     Text("天皰瘡\n(Pemphigus foliaceus, PF)")
                         .font(.system(size: 20))
@@ -39,7 +39,7 @@ struct DiseaseOutcomeView: View {
                     }label: {
                         Text("獸醫院地圖")
                             .foregroundStyle(.white)
-                            .frame(width: 362,height: 65)
+                            .frame(width: 350,height: 65)
                             .font(.system(size: 24))
                             .background(Color(red: 103/255, green: 118/255, blue: 121/255))
                             .clipShape(RoundedRectangle(cornerRadius: 30))

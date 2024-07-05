@@ -46,7 +46,7 @@ struct TabBarView: View {
                     }
                 }
                 .tag(3)
-            Text("Setting View")
+            DrinkRecordView()
                 .tabItem {
                     VStack{
                         Image(systemName: "gearshape")
