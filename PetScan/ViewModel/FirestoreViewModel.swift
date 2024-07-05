@@ -50,7 +50,7 @@ class FirestoreViewModel: ObservableObject {
     }
     
     func fetchPetInfo(by petID: [Int]) {
-        db.collection("PetInfo").whereField("petID", in: petID).addSnapshotListener { (querySnapshot, error) in
+        db.collection("PetInfo").whereField("petID", in: petID).addSnapshotListener { [self] (querySnapshot, error) in
             if let error = error {
                 print("Error getting documents: \(error)")
                 return
@@ -77,8 +77,11 @@ class FirestoreViewModel: ObservableObject {
                 let type = data["type"] as? String
                 let weight = data["weight"] as? Double
                 let imageURL = data["imageURL"] as? String
-                let food = (data["food"] as? [[String: Any]])?.map { Food(timestamp: $0["time"] as? Date ?? Date(), name: $0["name"] as? String ?? "", value: $0["value"] as? Double ?? 0.0) } ?? []
-                let drink = (data["drink"] as? [[String: Any]])?.map { Drink(timestamp: $0["time"] as? Date ?? Date(), value: $0["value"] as? Double ?? 0.0) } ?? []
+                let foodData = data["food"] as? [[String: Any]] ?? []
+                let drinkData = data["drink"] as? [[String: Any]] ?? []
+                
+                let food = fetchFood(foodData)
+                let drink = fetchDrink(drinkData)
                 
                 print("petID: \(String(describing: petID)), name: \(String(describing: name)), type: \(String(describing: type)), weight: \(String(describing: weight)), img: \(String(describing: imageURL)), food: \(food), drink: \(drink)")
                 return PetInfo(name: name ?? "", petID: petID ?? 1, type: type ?? "", weight: weight ?? 0.0, imageURL: imageURL ?? "", food: food, drink: drink)
@@ -87,6 +90,23 @@ class FirestoreViewModel: ObservableObject {
                 self.setCurrentPet(pet: self.pets[0])
 //                print("\(self.currentPet)")
             }
+        }
+    }
+    
+    func fetchFood(_ foodData: [[String: Any]]) -> [Food] {
+        return foodData.compactMap { item in
+                let timestamp = (item["time"] as? Timestamp)?.dateValue() ?? Date()
+                let name = item["name"] as? String ?? ""
+                let value = item["value"] as? Double ?? 0.0
+                return Food(timestamp: timestamp, name: name, value: value)
+            }
+    }
+    
+    func fetchDrink(_ drinkData: [[String: Any]]) -> [Drink] {
+        return drinkData.compactMap { item in
+            let timestamp = (item["time"] as? Timestamp)?.dateValue() ?? Date()
+            let value = item["value"] as? Double ?? 0.0
+            return Drink(timestamp: timestamp, value: value)
         }
     }
     
@@ -202,17 +222,19 @@ class FirestoreViewModel: ObservableObject {
     
     func todayDrinkValue() {
         let ref = db.collection("PetInfo").document(currentPetObject).collection("drink")
-        let todayGMT = Calendar.current.startOfDay(for: Date())
-        let tomorrowGMT = Calendar.current.date(byAdding: .day, value: 1, to: todayGMT)!
-        let today = Calendar.current.date(byAdding: .hour, value: 8, to: todayGMT)!
-        let tomorrow = Calendar.current.date(byAdding: .hour, value: 8, to: tomorrowGMT)!
+        let today = Calendar.current.startOfDay(for: Date())
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
+//        let today = Calendar.current.date(byAdding: .hour, value: 8, to: todayGMT)!
+//        let tomorrow = Calendar.current.date(byAdding: .hour, value: 8, to: tomorrowGMT)!
         print("Today: \(today), Tomorrow: \(tomorrow)")
+        let todayTimestamp = Timestamp(date: today)
+        let tomorrowTimestamp = Timestamp(date: tomorrow)
         let limit = 385
-        ref.whereField("time", isLessThanOrEqualTo: today).whereField("time", isLessThan: tomorrow).getDocuments { (snapshot, error) in
+        ref.whereField("time", isLessThanOrEqualTo: todayTimestamp).whereField("time", isLessThan: tomorrowTimestamp).getDocuments { (snapshot, error) in
             if let error = error {
                 print("todayDrinkValue Error getting documents: \(error)")
             } else if let snapshot = snapshot {
-                print("Documents fetched successfully")
+                print("Documents fetched successfully, Number of documents: \(snapshot.documents.count)")
                 var totalValue = snapshot.documents.reduce(0) { (sum, document) -> Int in
                     let data = document.data()
                     if let entries = data["entries"] as? [[String: Any]] {
