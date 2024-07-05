@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DiseaseOutcomeView: View {
+    var selectedImage: UIImage?
     let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
     let selectedColor: Color = Color(red: 103/255, green: 118/255, blue: 121/255)
@@ -20,12 +21,14 @@ struct DiseaseOutcomeView: View {
                 themeColor
                     .frame(height: 710)
                 VStack{
-                    Rectangle()
-                        .frame(width: 362,height: 263)
-                        .foregroundStyle(.white)
+                    Image(uiImage: selectedImage!)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 362, height: 263)
                         .padding()
-                    Text("disease")
+                    Text("天皰瘡\n(Pemphigus foliaceus, PF)")
                         .font(.system(size: 20))
+                        .multilineTextAlignment(.center)
                         .foregroundStyle(.white)
                         .padding()
                     Text("請儘速就醫")

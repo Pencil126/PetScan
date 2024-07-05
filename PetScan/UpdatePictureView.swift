@@ -75,26 +75,41 @@ struct UpdatePictureView: View {
                         }
                     }
                     
-                    NavigationLink {
-                        AskSimpleQuestionsView()
-                    } label: {
-                        Text("基礎問題檢測")
-                            .foregroundStyle(.white)
-                            .frame(width: 362, height: 65)
-                            .font(.system(size: 24))
-                            .background(selectedColor)
-                            .clipShape(RoundedRectangle(cornerRadius: 30))
-                    }
-                    .toolbar {
-                        ToolbarItem(placement: .principal) {
-                            Text("皮膚病檢測")
+                    if isPhotoPickerPresented == true{
+                        NavigationLink {
+                            AskSimpleQuestionsView(selectedImage: selectedImage)
+                        } label: {
+                            Text("基礎問題檢測")
+                                .foregroundStyle(.white)
+                                .frame(width: 362, height: 65)
                                 .font(.system(size: 24))
+                                .background(selectedColor)
+                                .clipShape(RoundedRectangle(cornerRadius: 30))
+                        }
+                        
+                    }
+                    else{
+                        Button{
+                            //action
+                        }label: {
+                            Text("基礎問題檢測")
+                                .foregroundStyle(.white)
+                                .frame(width: 362, height: 65)
+                                .font(.system(size: 24))
+                                .background(selectedColor)
+                                .clipShape(RoundedRectangle(cornerRadius: 30))
                         }
                     }
-                    .navigationBarTitleDisplayMode(.inline)
                     
                     Spacer()
                 }
+                .toolbar {
+                    ToolbarItem(placement: .principal) {
+                        Text("皮膚病檢測")
+                            .font(.system(size: 24))
+                    }
+                }
+                .navigationBarTitleDisplayMode(.inline)
             }
             .sheet(isPresented: $isCameraPickerPresented) {
                 ImagePicker(sourceType: .camera, selectedImage: $selectedImage)
