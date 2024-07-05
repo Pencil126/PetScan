@@ -23,7 +23,7 @@ struct HospitalMapView: View {
                 VStack {
                     SearchBar(text: $searchBarText)
                     MapView()
-                        .frame(width: 359, height: 323)
+                        .frame(width: 350, height: 323)
                         .cornerRadius(10)
                     
                     VStack {

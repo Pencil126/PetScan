@@ -82,7 +82,7 @@ struct HomeView: View {
                         }
                         .buttonStyle(HomeViewButtonStyle())
                         
-                        NavigationLink(destination: FoodAndDrinkView()){ //需修改
+                        NavigationLink(destination: DrinkRecordView()){ //需修改
                             Text("皮膚病檢測結果歷史紀錄")
                         }
                         .buttonStyle(HomeViewButtonStyle())
@@ -103,7 +103,7 @@ struct HomeView: View {
 struct HomeViewButtonStyle: ButtonStyle{
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .frame(width: 351,height: 59)
+            .frame(width: 350,height: 59)
             .font(.system(size: 24))
             .background(Color(red: 238/255, green: 238/255, blue: 238/255))
             .clipShape(RoundedRectangle(cornerRadius: 30))

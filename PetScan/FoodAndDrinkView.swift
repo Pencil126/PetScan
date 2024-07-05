@@ -71,7 +71,7 @@ struct FoodAndDrinkView: View {
                             
                         }
                         .listSectionSpacing(15)
-                        .frame(height: drinkOrFood == "drink" ? 210 : 270)
+                        .frame(width: 385,height: drinkOrFood == "drink" ? 210 : 270)
                         .scrollContentBackground(.hidden)
                         .scrollDisabled(true)
                         
@@ -84,7 +84,7 @@ struct FoodAndDrinkView: View {
                         }label: {
                             Text("+ 新增")
                                 .foregroundStyle(.white)
-                                .frame(width: 362,height: 65)
+                                .frame(width: 350,height: 65)
                                 .font(.system(size: 24))
                                 .background(Color(red: 103/255, green: 118/255, blue: 121/255))
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
@@ -97,28 +97,27 @@ struct FoodAndDrinkView: View {
                         if drinkOrFood == "drink"{
                             ZStack{
                                 RoundedRectangle(cornerRadius: 10)
-                                    .frame(width: 359,height: 193)
+                                    .frame(width: 350,height: 193)
                                     .foregroundStyle(backgroundColor)
-                                VStack {
-                                    HStack(spacing: 0) {
+                                VStack (spacing: 0){
+                                    VStack(spacing: 0) {
                                         Text("距離達標還差")
                                             .font(.system(size: 24))
                                             .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
-                                            .frame(width: 127, height: 80,alignment: .bottom)
                                         
-                                        Text("\(viewModel.totalDrinkValue)")
-                                            .font(.system(size: 64))
-                                            .fontWeight(.black)
-                                            .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
-                                            .frame(height: 100,alignment: .bottom)
-                                            .onAppear{
-                                                viewModel.todayDrinkValue()
-                                            }
-                                        
-                                        Text("ml")
-                                            .font(.system(size: 32))
-                                            .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
-                                            .frame(height: 80,alignment: .bottom)
+                                        HStack{
+                                            Text("\(viewModel.totalDrinkValue)")
+                                                .font(.system(size: 60))
+                                                .fontWeight(.black)
+                                                .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
+                                                .onAppear{
+                                                    viewModel.todayDrinkValue()
+                                                }
+                                            
+                                            Text("ml")
+                                                .font(.system(size: 20))
+                                                .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
+                                        }
                                     }
                                     VStack(alignment: .trailing){
                                         HStack {
@@ -132,8 +131,8 @@ struct FoodAndDrinkView: View {
                                         Text("一天需要喝水量為385-770ml")
                                             .font(.system(size: 16))
                                             .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
+                                            .padding(.horizontal,10)
                                     }
-                                    .padding(.bottom,20)
                                 }
                             }
                             .padding(EdgeInsets(top: 50, leading: 0, bottom: 20, trailing: 0))
@@ -141,31 +140,29 @@ struct FoodAndDrinkView: View {
                         else if drinkOrFood == "food"{
                             ZStack{
                                 RoundedRectangle(cornerRadius: 10)
-                                    .frame(width: 359,height: 120)
+                                    .frame(width: 350,height: 120)
                                     .foregroundStyle(backgroundColor)
                                 VStack {
-                                    HStack(spacing: 0) {
+                                    VStack(spacing: 0) {
                                         Text("距離達標還差")
                                             .font(.system(size: 24))
                                             .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
-                                            .frame(width: 127, height: 80,alignment: .bottom)
                                         
-                                        Text("\(viewModel.totalFoodValue, specifier: "%.0f")")
-                                            .font(.system(size: 64))
-                                            .fontWeight(.black)
-                                            .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
-                                            .frame(height: 110,alignment: .bottom)
-                                            .onAppear{
-                                                viewModel.todayFoodValue()
-                                            }
-                                        
-                                        Text("公克")
-                                            .font(.system(size: 24))
-                                            .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
-                                            .frame(height: 80,alignment: .bottom)
+                                        HStack{
+                                            Text("\(viewModel.totalFoodValue, specifier: "%.0f")")
+                                                .font(.system(size: 60))
+                                                .fontWeight(.black)
+                                                .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
+                                                .onAppear{
+                                                    viewModel.todayFoodValue()
+                                                }
+                                            
+                                            Text("公克")
+                                                .font(.system(size: 20))
+                                                .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
+                                        }
                                     }
                                 }
-                                .padding(.bottom,20)
                             }
                             .padding(EdgeInsets(top: 30, leading: 0, bottom: 20, trailing: 0))
                         }
@@ -175,7 +172,7 @@ struct FoodAndDrinkView: View {
                         }label: {
                             Text("歷史紀錄")
                                 .foregroundStyle(.white)
-                                .frame(width: 362,height: 65)
+                                .frame(width: 350,height: 65)
                                 .font(.system(size: 24))
                                 .background(Color(red: 103/255, green: 118/255, blue: 121/255))
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
@@ -205,7 +202,7 @@ struct FoodAndDrinkView: View {
             } label: {
                 ZStack {
                     UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(topLeading: 10, bottomLeading: 10))
-                        .frame(width: 175.5, height: 37)
+                        .frame(width: 175, height: 37)
                         .foregroundStyle(drinkOrFood == "drink" ? Color(red: 103/255, green: 118/255, blue: 121/255) : .white)
                     HStack{
                         Text("喝水量")
@@ -223,7 +220,7 @@ struct FoodAndDrinkView: View {
             } label: {
                 ZStack {
                     UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(bottomTrailing: 10, topTrailing: 10))
-                        .frame(width: 175.5, height: 37)
+                        .frame(width: 175, height: 37)
                         .foregroundStyle(drinkOrFood == "food" ? Color(red: 103/255, green: 118/255, blue: 121/255) : .white)
                     HStack{
                         Text("食物")

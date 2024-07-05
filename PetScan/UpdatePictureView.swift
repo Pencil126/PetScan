@@ -13,6 +13,7 @@ struct UpdatePictureView: View {
     @State private var isImagePickerPresented = false
     @State private var isCameraPickerPresented = false
     @State private var isPhotoPickerPresented = false
+    @State private var isPhotoSelected = false
     
     let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
@@ -41,7 +42,7 @@ struct UpdatePictureView: View {
                         ZStack{
                             RoundedRectangle(cornerRadius: 25.0)
                                 .foregroundStyle(.white)
-                                .frame(width: 362, height: 362)
+                                .frame(width: 350, height: 350)
                                 .padding(EdgeInsets(top: 30, leading: 0, bottom: 30, trailing: 0))
                             Image("App")
                                 .resizable()
@@ -50,6 +51,7 @@ struct UpdatePictureView: View {
                             VStack {
                                 Button{
                                     isCameraPickerPresented = true
+                                    isPhotoSelected = true
                                 }label:{
                                     Text("開啟相機")
                                         .foregroundStyle(.white)
@@ -62,6 +64,7 @@ struct UpdatePictureView: View {
                                 
                                 Button{
                                     isPhotoPickerPresented = true
+                                    isPhotoSelected = true
                                 }label: {
                                     Text("上傳圖片")
                                         .foregroundStyle(.white)
@@ -75,13 +78,13 @@ struct UpdatePictureView: View {
                         }
                     }
                     
-                    if isPhotoPickerPresented == true{
+                    if isPhotoSelected == true{
                         NavigationLink {
                             AskSimpleQuestionsView(selectedImage: selectedImage)
                         } label: {
                             Text("基礎問題檢測")
                                 .foregroundStyle(.white)
-                                .frame(width: 362, height: 65)
+                                .frame(width: 350, height: 65)
                                 .font(.system(size: 24))
                                 .background(selectedColor)
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
@@ -94,7 +97,7 @@ struct UpdatePictureView: View {
                         }label: {
                             Text("基礎問題檢測")
                                 .foregroundStyle(.white)
-                                .frame(width: 362, height: 65)
+                                .frame(width: 350, height: 65)
                                 .font(.system(size: 24))
                                 .background(selectedColor)
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
