@@ -66,7 +66,7 @@ struct HomeView: View {
                     
                     //功能按鍵區塊
                     VStack{
-                        NavigationLink(destination: FoodAndDrinkView()){ //需修改
+                        NavigationLink(destination: DrinkRecordView()){ //需修改
                             Text("食物與喝水量歷史紀錄")
                         }
                         .buttonStyle(HomeViewButtonStyle())
