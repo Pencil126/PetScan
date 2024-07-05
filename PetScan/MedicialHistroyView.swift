@@ -128,7 +128,7 @@ struct MedicialHistroyView: View {
                     .frame(height: 500)
                     
                     NavigationLink{
-                        //action
+                        EnterMedicineView()
                     }label: {
                         Text("新增紀錄")
                             .foregroundStyle(.white)
@@ -142,7 +142,7 @@ struct MedicialHistroyView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("藥物歷史紀錄")
+                    Text("藥物服用歷史紀錄")
                         .font(.system(size: 24))
                 }
             }

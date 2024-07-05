@@ -46,11 +46,11 @@ struct TabBarView: View {
                     }
                 }
                 .tag(3)
-            DrinkRecordView()
+            EnterMedicineView()
                 .tabItem {
                     VStack{
-                        Image(systemName: "gearshape")
-                        Text("設定")
+                        Image(systemName: "pill.fill")
+                        Text("藥物紀錄")
                     }
                 }
                 .tag(4)
