@@ -38,8 +38,9 @@ struct DrinkRecordView: View {
                                 HStack {
                                     Text("707")
                                         .font(.system(size: 60))
-                                        .foregroundColor(Color(red: 180/255, green: 90/255, blue: 50/255))
-                                        .bold()
+                                        .fontWeight(.black)
+                                        .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
+                                    //改了他的樣式
                                     
                                     Text("ml")
                                         .font(.system(size: 20))

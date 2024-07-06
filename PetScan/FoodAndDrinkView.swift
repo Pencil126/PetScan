@@ -38,12 +38,12 @@ struct FoodAndDrinkView: View {
                         Form{
                             Section{
                                 DatePicker("日期", selection: $date, displayedComponents: .date)
-                                    
+                                
                             }
                             .frame(height: 30)
                             Section{
                                 DatePicker("時間", selection: $date, displayedComponents: .hourAndMinute)
-                                    
+                                
                             }
                             .frame(height: 30)
                             
@@ -93,7 +93,7 @@ struct FoodAndDrinkView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
                                 .onAppear{
                                     viewModel.todayFoodValue()
-//                                    viewModel.todayDrinkValue()
+                                    //                                    viewModel.todayDrinkValue()
                                 }
                         }
                         
@@ -109,13 +109,21 @@ struct FoodAndDrinkView: View {
                                             .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
                                         
                                         HStack{
-                                            Text("\(todayRemainDrink)")
-                                                .font(.system(size: 60))
-                                                .fontWeight(.black)
-                                                .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
-//                                                .onAppear{
-//                                                    viewModel.todayDrinkValue()
-//                                                }
+                                            if todayRemainDrink <= 0{
+                                                Text("0")
+                                                    .font(.system(size: 60))
+                                                    .fontWeight(.black)
+                                                    .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
+                                            }else{
+                                                Text("\(todayRemainDrink)")
+                                                    .font(.system(size: 60))
+                                                    .fontWeight(.black)
+                                                    .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
+                                            }
+                                                
+                                            //                                                .onAppear{
+                                            //                                                    viewModel.todayDrinkValue()
+                                            //                                                }
                                             
                                             Text("ml")
                                                 .font(.system(size: 20))
@@ -123,13 +131,19 @@ struct FoodAndDrinkView: View {
                                         }
                                     }
                                     VStack(alignment: .trailing){
-                                        HStack {
+                                        ZStack(alignment: .leading) {
                                             RoundedRectangle(cornerRadius: 10)
-                                                .frame(width: 312*((500-Double(todayRemainDrink))/500), height: 35)
-                                            .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
-                                            RoundedRectangle(cornerRadius: 10)
-                                                .frame(width: 312*(Double(todayRemainDrink)/500), height: 35)
-                                            .foregroundStyle(.white)
+                                                .frame(width: 310, height: 35)
+                                                .foregroundStyle(.white)
+                                            if todayRemainDrink <= 0{
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .frame(width: 310, height: 35)
+                                                    .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
+                                            }else{
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .frame(width: 310*((500-Double(todayRemainDrink))/500), height: 35,alignment: .leading)
+                                                    .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
+                                            }
                                         }
                                         Text("一天需要喝水量為385-770ml")
                                             .font(.system(size: 16))
