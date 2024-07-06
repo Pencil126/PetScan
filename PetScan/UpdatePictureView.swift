@@ -1,9 +1,5 @@
-//
-//  UpdatePictureView.swift
-//  PetScan
-//
-//  Created by 蔡承曄 on 2024/7/4.
-//
+// UpdatePictureView.swift
+// PetScan
 
 import SwiftUI
 import PhotosUI
@@ -28,15 +24,15 @@ struct UpdatePictureView: View {
     @State private var classificationLabel = "Tap 'Choose Picture' to select an image."
     
     var model: VNCoreMLModel? = {
-            do {
-                // 请确保这里的模型名称与您的文件名一致
-                let config = MLModelConfiguration()
-                return try VNCoreMLModel(for: PetScanDogAugmentation(configuration: config).model)
-            } catch {
-                print("Failed to load the model: \(error)")
-                return nil
-            }
-        }()
+        do {
+            // 请确保这里的模型名称与您的文件名一致
+            let config = MLModelConfiguration()
+            return try VNCoreMLModel(for: PetScanDogAugmentation(configuration: config).model)
+        } catch {
+            print("Failed to load the model: \(error)")
+            return nil
+        }
+    }()
     
     var body: some View {
         NavigationStack {
@@ -65,7 +61,7 @@ struct UpdatePictureView: View {
                                 .padding(EdgeInsets(top: 30, leading: 0, bottom: 30, trailing: 0))
                             Image("App")
                                 .resizable()
-                                .frame(width: 300,height: 300)
+                                .frame(width: 300, height: 300)
                                 .opacity(0.2)
                             VStack {
                                 Button{
@@ -140,10 +136,10 @@ struct UpdatePictureView: View {
                 }
                 .navigationBarTitleDisplayMode(.inline)
             }
-            .sheet(isPresented: $isCameraPickerPresented) {
+            .fullScreenCover(isPresented: $isCameraPickerPresented) {
                 ImagePicker(sourceType: .camera, selectedImage: $selectedImage)
             }
-            .sheet(isPresented: $isPhotoPickerPresented) {
+            .fullScreenCover(isPresented: $isPhotoPickerPresented) {
                 ImagePicker(sourceType: .photoLibrary, selectedImage: $selectedImage)
             }
         }
@@ -220,6 +216,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         }
     }
 }
+
 
 
 #Preview {
