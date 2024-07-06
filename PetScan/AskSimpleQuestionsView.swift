@@ -41,6 +41,8 @@ struct CustomToggle: ToggleStyle {
 
 struct AskSimpleQuestionsView: View {
     var selectedImage: UIImage?
+    @ObservedObject var detector = DetectPetScanDog()
+    
     let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
     

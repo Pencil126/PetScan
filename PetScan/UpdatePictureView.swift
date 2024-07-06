@@ -15,8 +15,8 @@ struct UpdatePictureView: View {
     @State private var isImagePickerPresented = false
     @State private var isCameraPickerPresented = false
     @State private var isPhotoPickerPresented = false
-    @State private var isPhotoSelected = false
     @State private var isShowPhotoAlert = false
+    @ObservedObject var detector = DetectPetScanDog()
     
     let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
@@ -70,7 +70,6 @@ struct UpdatePictureView: View {
                             VStack {
                                 Button{
                                     isCameraPickerPresented = true
-                                    isPhotoSelected = true
                                 }label:{
                                     Text("開啟相機")
                                         .foregroundStyle(.white)
@@ -83,7 +82,6 @@ struct UpdatePictureView: View {
                                 
                                 Button{
                                     isPhotoPickerPresented = true
-                                    isPhotoSelected = true
                                 }label: {
                                     Text("上傳圖片")
                                         .foregroundStyle(.white)
@@ -97,7 +95,7 @@ struct UpdatePictureView: View {
                         }
                     }
                     
-                    if isPhotoSelected == true{
+                    if selectedImage != nil{
                         NavigationLink {
                             AskSimpleQuestionsView(selectedImage: selectedImage)
                         } label: {
@@ -108,7 +106,11 @@ struct UpdatePictureView: View {
                                 .background(selectedColor)
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
                         }
-                        
+                        .onAppear{
+                            if let image = self.selectedImage {
+                                self.detector.classifyImage(image)
+                            }
+                        }
                     }
                     else{
                         Button{
@@ -147,47 +149,39 @@ struct UpdatePictureView: View {
         }
     }
     
-    func loadImage() {
-        guard let inputImage = inputImage else { return }
-        image = Image(uiImage: inputImage)
-        classifyImage(inputImage)
-    }
-    
-    func classifyImage(_ image: UIImage) {
-        guard let model = model else {
-            classificationLabel = "Model is not loaded."
-            return
-        }
-        guard let ciImage = CIImage(image: image) else {
-            fatalError("Couldn't convert UIImage to CIImage")
-        }
-        
-        let request = VNCoreMLRequest(model: model) { (request, error) in
-            guard let results = request.results as? [VNClassificationObservation] else {
-                self.classificationLabel = "Unable to classify image."
-                return
-            }
-            
-            if let firstResult = results.first {
-                DispatchQueue.main.async {
-                    let confidenceString = String(format: "%.2f", firstResult.confidence * 100)
-                    self.classificationLabel = "Classification: \(firstResult.identifier)\nConfidence: \(confidenceString)%"
-                }
-            }
-        }
-
-        let handler = VNImageRequestHandler(ciImage: ciImage)
-        DispatchQueue.global(qos: .userInteractive).async {
-            do {
-                try handler.perform([request])
-            } catch {
-                DispatchQueue.main.async {
-                    self.classificationLabel = "Failed to perform classification.\n\(error.localizedDescription)"
-                }
-            }
-        }
-    }
-
+//    private func classifyImage(_ image: UIImage) {
+//        guard let model = try? VNCoreMLModel(for: PetScanDogAugmentation().model) else {
+//            fatalError("Failed to load model")
+//        }
+//
+//        let request = VNCoreMLRequest(model: model) { request, error in
+//            if let results = request.results as? [VNClassificationObservation] {
+//                let topResult = results.first
+//                DispatchQueue.main.async {
+//                    self.classification = topResult?.identifier ?? "Unknown"
+//                }
+//            } else {
+//                DispatchQueue.main.async {
+//                    self.classification = "ErrorRequest: \(error?.localizedDescription ?? "unknown error")"
+//                }
+//            }
+//        }
+//
+//        guard let ciImage = CIImage(image: image) else {
+//            fatalError("Failed to convert UIImage to CIImage")
+//        }
+//
+//        let handler = VNImageRequestHandler(ciImage: ciImage, options: [:])
+//        DispatchQueue.global(qos: .userInteractive).async {
+//            do {
+//                try handler.perform([request])
+//            } catch {
+//                DispatchQueue.main.async {
+//                    self.classification = "ErrorHandler: \(error.localizedDescription)"
+//                }
+//            }
+//        }
+//    }
 }
 
 struct ImagePicker: UIViewControllerRepresentable {

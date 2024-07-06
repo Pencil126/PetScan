@@ -9,6 +9,8 @@ import SwiftUI
 
 struct DiseaseOutcomeView: View {
     var selectedImage: UIImage?
+    @ObservedObject var detector = DetectPetScanDog()
+    
     let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
     let selectedColor: Color = Color(red: 103/255, green: 118/255, blue: 121/255)
@@ -34,6 +36,9 @@ struct DiseaseOutcomeView: View {
                     Text("請儘速就醫")
                         .font(.system(size: 48))
                         .foregroundStyle(.white)
+                    Text(detector.classification)
+                        .foregroundStyle(.white)
+                        .padding()
                     NavigationLink{
                         HospitalMapView()
                     }label: {
