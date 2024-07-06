@@ -16,6 +16,8 @@ struct FoodAndDrinkView: View {
     @State var drinkOrFood: String = "drink"
     @State var nameOfFood: String = ""
     @State var amountOfFood: String = ""
+    @State var todayRemainFood: Double = 300
+    @State var todayRemainDrink: Int = 500
     
     var body: some View {
         NavigationStack{
@@ -78,6 +80,7 @@ struct FoodAndDrinkView: View {
                         Button{
                             if drinkOrFood == "drink" {
                                 viewModel.addDrinkRecord(date: date, value: Int(amountOfWater) ?? 0)
+                                todayRemainDrink -= Int(amountOfWater) ?? 0
                             } else if drinkOrFood == "food" {
                                 viewModel.addFoodRecord(date: date, name: nameOfFood, value: Double(amountOfFood) ?? 0)
                             }
@@ -90,7 +93,7 @@ struct FoodAndDrinkView: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
                                 .onAppear{
                                     viewModel.todayFoodValue()
-                                    viewModel.todayDrinkValue()
+//                                    viewModel.todayDrinkValue()
                                 }
                         }
                         
@@ -106,13 +109,13 @@ struct FoodAndDrinkView: View {
                                             .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
                                         
                                         HStack{
-                                            Text("\(viewModel.totalDrinkValue)")
+                                            Text("\(todayRemainDrink)")
                                                 .font(.system(size: 60))
                                                 .fontWeight(.black)
                                                 .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
-                                                .onAppear{
-                                                    viewModel.todayDrinkValue()
-                                                }
+//                                                .onAppear{
+//                                                    viewModel.todayDrinkValue()
+//                                                }
                                             
                                             Text("ml")
                                                 .font(.system(size: 20))
@@ -122,10 +125,10 @@ struct FoodAndDrinkView: View {
                                     VStack(alignment: .trailing){
                                         HStack {
                                             RoundedRectangle(cornerRadius: 10)
-                                                .frame(width: 312*CGFloat(((385-viewModel.totalDrinkValue)/385)),height: 35)
+                                                .frame(width: 312*((500-Double(todayRemainDrink))/500), height: 35)
                                             .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
                                             RoundedRectangle(cornerRadius: 10)
-                                                .frame(width: 312*CGFloat((viewModel.totalDrinkValue/385)),height: 35)
+                                                .frame(width: 312*(Double(todayRemainDrink)/500), height: 35)
                                             .foregroundStyle(.white)
                                         }
                                         Text("一天需要喝水量為385-770ml")
@@ -149,7 +152,7 @@ struct FoodAndDrinkView: View {
                                             .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
                                         
                                         HStack{
-                                            Text("\(viewModel.totalFoodValue, specifier: "%.0f")")
+                                            Text("\(todayRemainFood, specifier: "%.1f")")
                                                 .font(.system(size: 60))
                                                 .fontWeight(.black)
                                                 .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))

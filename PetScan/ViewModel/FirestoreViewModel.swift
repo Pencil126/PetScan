@@ -220,42 +220,46 @@ class FirestoreViewModel: ObservableObject {
         }
     }
     
-    func todayDrinkValue() {
-        let ref = db.collection("PetInfo").document(currentPetObject).collection("drink")
-        let today = Calendar.current.startOfDay(for: Date())
-        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
+//    func todayDrinkValue() {
+//        let ref = db.collection("PetInfo").document(currentPetObject)
+//        let today = Calendar.current.startOfDay(for: Date())
+//        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
 //        let today = Calendar.current.date(byAdding: .hour, value: 8, to: todayGMT)!
 //        let tomorrow = Calendar.current.date(byAdding: .hour, value: 8, to: tomorrowGMT)!
-        print("Today: \(today), Tomorrow: \(tomorrow)")
-        let todayTimestamp = Timestamp(date: today)
-        let tomorrowTimestamp = Timestamp(date: tomorrow)
-        let limit = 385
-        ref.whereField("time", isLessThanOrEqualTo: todayTimestamp).whereField("time", isLessThan: tomorrowTimestamp).getDocuments { (snapshot, error) in
-            if let error = error {
-                print("todayDrinkValue Error getting documents: \(error)")
-            } else if let snapshot = snapshot {
-                print("Documents fetched successfully, Number of documents: \(snapshot.documents.count)")
-                var totalValue = snapshot.documents.reduce(0) { (sum, document) -> Int in
-                    let data = document.data()
-                    if let entries = data["entries"] as? [[String: Any]] {
-                        // 累加所有符合今天日期的 value
-                        return entries.reduce(sum) { (subSum, entry) -> Int in
-                            if let timestamp = entry["time"] as? Timestamp,
-                               let value = entry["value"] as? Int,
-                               Calendar.current.isDate(timestamp.dateValue(), inSameDayAs: today) {
-                                return subSum + value
-                            }
-                            return subSum
-                        }
-                    }
-                    return sum
-                }
-                print("Total value for today is: \(totalValue)")
-                totalValue = limit - totalValue
-                DispatchQueue.main.async {
-                    self.totalDrinkValue = totalValue
-                }
-            }
-        }
-    }
+//        let todayTimestamp = Timestamp(date: today)
+//        let tomorrowTimestamp = Timestamp(date: tomorrow)
+//        let limit = 385
+//        .whereField("time", isLessThanOrEqualTo: today).whereField("time", isLessThan: tomorrow)
+//        print("Today: \(today), Tomorrow: \(tomorrow)")
+//        print("Query range: \(todayTimestamp) to \(tomorrowTimestamp)")
+//        let drinkData = data["drink"] as? [[String: Any]] ?? []
+//        let drink = fetchDrink(drinkData)
+//        ref.getDocuments { (snapshot, error) in
+//            if let error = error {
+//                print("todayDrinkValue Error getting documents: \(error)")
+//            } else if let snapshot = snapshot {
+//                print("Documents fetched successfully, Number of documents: \(snapshot.documents.count)")
+//                var totalValue = snapshot.documents.reduce(0) { (sum, document) -> Int in
+//                    let data = document.data()
+//                    if let entries = data["entries"] as? [[String: Any]] {
+//                        // 累加所有符合今天日期的 value
+//                        return entries.reduce(sum) { (subSum, entry) -> Int in
+//                            if let timestamp = entry["time"] as? Timestamp,
+//                               let value = entry["value"] as? Int,
+//                               Calendar.current.isDate(timestamp.dateValue(), inSameDayAs: today) {
+//                                return subSum + value
+//                            }
+//                            return subSum
+//                        }
+//                    }
+//                    return sum
+//                }
+//                print("Total value for today is: \(totalValue)")
+//                totalValue = limit - totalValue
+//                DispatchQueue.main.async {
+//                    self.totalDrinkValue = totalValue
+//                }
+//            }
+//        }
+//    }
 }
