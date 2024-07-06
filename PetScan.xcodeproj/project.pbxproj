@@ -33,6 +33,7 @@
 		F77620952C36E7760094024D /* PetList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77620942C36E7760094024D /* PetList.swift */; };
 		F77620972C36F8BE0094024D /* MedicialHistroyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77620962C36F8BE0094024D /* MedicialHistroyView.swift */; };
 		F77620992C37A1770094024D /* DrinkRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F77620982C37A1770094024D /* DrinkRecordView.swift */; };
+		F776209B2C37DA060094024D /* EnterMedicineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F776209A2C37DA060094024D /* EnterMedicineView.swift */; };
 		F7A7F12E2C369EC1007575D6 /* AskSimpleQuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7A7F12D2C369EC1007575D6 /* AskSimpleQuestionsView.swift */; };
 		F7ED45BE2C22F10D0096115B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7ED45BD2C22F10D0096115B /* HomeView.swift */; };
 		F7F5DBEB2C25448C001294A3 /* FoodAndDrinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7F5DBEA2C25448C001294A3 /* FoodAndDrinkView.swift */; };
@@ -62,6 +63,7 @@
 		F77620942C36E7760094024D /* PetList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetList.swift; sourceTree = "<group>"; };
 		F77620962C36F8BE0094024D /* MedicialHistroyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicialHistroyView.swift; sourceTree = "<group>"; };
 		F77620982C37A1770094024D /* DrinkRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkRecordView.swift; sourceTree = "<group>"; };
+		F776209A2C37DA060094024D /* EnterMedicineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterMedicineView.swift; sourceTree = "<group>"; };
 		F7A7F12D2C369EC1007575D6 /* AskSimpleQuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AskSimpleQuestionsView.swift; sourceTree = "<group>"; };
 		F7ED45BD2C22F10D0096115B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		F7F5DBEA2C25448C001294A3 /* FoodAndDrinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodAndDrinkView.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				D618EA252C36EDF0006395C9 /* DetectPetScanDog.swift */,
 				F776208E2C36BCD00094024D /* HospitalMapView.swift */,
 				F7ED45BD2C22F10D0096115B /* HomeView.swift */,
+				F776209A2C37DA060094024D /* EnterMedicineView.swift */,
 				F77620942C36E7760094024D /* PetList.swift */,
 				F72370B12C1B1050002199B1 /* SelectPetView.swift */,
 				D675F3CF2C38EB5F00DA3350 /* PetScanDogAugmentation.mlmodel */,
@@ -251,6 +254,7 @@
 			files = (
 				F77620932C36DFED0094024D /* HealthCheckRecordView.swift in Sources */,
 				F77620972C36F8BE0094024D /* MedicialHistroyView.swift in Sources */,
+				F776209B2C37DA060094024D /* EnterMedicineView.swift in Sources */,
 				F77620952C36E7760094024D /* PetList.swift in Sources */,
 				D615D3862C257244007039EE /* UserAuthViewModel.swift in Sources */,
 				D615D38F2C2C0E07007039EE /* PetInfo.swift in Sources */,
