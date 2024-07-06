@@ -14,7 +14,7 @@ class DetectViewModel: ObservableObject {
             do {
                 // 请确保这里的模型名称与您的文件名一致
                 let config = MLModelConfiguration()
-                return try VNCoreMLModel(for: PetScanDog(configuration: config).model)
+                return try VNCoreMLModel(for: PetScanDogAugmentation(configuration: config).model)
             } catch {
                 print("Failed to load the model: \(error)")
                 return nil
