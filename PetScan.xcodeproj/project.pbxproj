@@ -22,8 +22,8 @@
 		D615D38F2C2C0E07007039EE /* PetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D615D38E2C2C0E07007039EE /* PetInfo.swift */; };
 		D615D3912C2C1FF9007039EE /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D615D3902C2C1FF9007039EE /* FirebaseFirestoreSwift */; };
 		D615D3952C3016F2007039EE /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D615D3942C3016F2007039EE /* FirebaseStorage */; };
-		D618EA262C36EDF0006395C9 /* DetectPetScanDog.swift in Sources */ = {isa = PBXBuildFile; fileRef = D618EA252C36EDF0006395C9 /* DetectPetScanDog.swift */; };
 		D675F3D02C38EB5F00DA3350 /* PetScanDogAugmentation.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D675F3CF2C38EB5F00DA3350 /* PetScanDogAugmentation.mlmodel */; };
+		D675F3D22C39A83700DA3350 /* PetScanDogAugmentationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D675F3D12C39A83700DA3350 /* PetScanDogAugmentationViewModel.swift */; };
 		D6DBAB8C2C2435A2005F854E /* .gitattributes in Resources */ = {isa = PBXBuildFile; fileRef = D6DBAB8B2C2435A2005F854E /* .gitattributes */; };
 		F72370B22C1B1050002199B1 /* SelectPetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F72370B12C1B1050002199B1 /* SelectPetView.swift */; };
 		F776208D2C36AC1D0094024D /* DiseaseOutcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F776208C2C36AC1D0094024D /* DiseaseOutcomeView.swift */; };
@@ -52,8 +52,8 @@
 		D615D3892C259625007039EE /* FirestoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreViewModel.swift; sourceTree = "<group>"; };
 		D615D38C2C2C0D85007039EE /* UsersPet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersPet.swift; sourceTree = "<group>"; };
 		D615D38E2C2C0E07007039EE /* PetInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetInfo.swift; sourceTree = "<group>"; };
-		D618EA252C36EDF0006395C9 /* DetectPetScanDog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectPetScanDog.swift; sourceTree = "<group>"; };
 		D675F3CF2C38EB5F00DA3350 /* PetScanDogAugmentation.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = PetScanDogAugmentation.mlmodel; sourceTree = "<group>"; };
+		D675F3D12C39A83700DA3350 /* PetScanDogAugmentationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetScanDogAugmentationViewModel.swift; sourceTree = "<group>"; };
 		D6DBAB8B2C2435A2005F854E /* .gitattributes */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitattributes; sourceTree = "<group>"; };
 		F72370B12C1B1050002199B1 /* SelectPetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPetView.swift; sourceTree = "<group>"; };
 		F776208C2C36AC1D0094024D /* DiseaseOutcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiseaseOutcomeView.swift; sourceTree = "<group>"; };
@@ -122,7 +122,6 @@
 				F7F5DBF62C3649C7001294A3 /* UpdatePictureView.swift */,
 				F776208C2C36AC1D0094024D /* DiseaseOutcomeView.swift */,
 				F77620922C36DFED0094024D /* HealthCheckRecordView.swift */,
-				D618EA252C36EDF0006395C9 /* DetectPetScanDog.swift */,
 				F776208E2C36BCD00094024D /* HospitalMapView.swift */,
 				F7ED45BD2C22F10D0096115B /* HomeView.swift */,
 				F776209A2C37DA060094024D /* EnterMedicineView.swift */,
@@ -156,6 +155,7 @@
 			children = (
 				D615D3852C257244007039EE /* UserAuthViewModel.swift */,
 				D615D3892C259625007039EE /* FirestoreViewModel.swift */,
+				D675F3D12C39A83700DA3350 /* PetScanDogAugmentationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -255,6 +255,7 @@
 				F77620932C36DFED0094024D /* HealthCheckRecordView.swift in Sources */,
 				F77620972C36F8BE0094024D /* MedicialHistroyView.swift in Sources */,
 				F776209B2C37DA060094024D /* EnterMedicineView.swift in Sources */,
+				D675F3D22C39A83700DA3350 /* PetScanDogAugmentationViewModel.swift in Sources */,
 				F77620952C36E7760094024D /* PetList.swift in Sources */,
 				D615D3862C257244007039EE /* UserAuthViewModel.swift in Sources */,
 				D615D38F2C2C0E07007039EE /* PetInfo.swift in Sources */,
@@ -267,7 +268,6 @@
 				D675F3D02C38EB5F00DA3350 /* PetScanDogAugmentation.mlmodel in Sources */,
 				F7ED45BE2C22F10D0096115B /* HomeView.swift in Sources */,
 				D606CF862C16F74000CD44D9 /* PetScanApp.swift in Sources */,
-				D618EA262C36EDF0006395C9 /* DetectPetScanDog.swift in Sources */,
 				D615D38D2C2C0D85007039EE /* UsersPet.swift in Sources */,
 				F7F5DBEF2C3545CE001294A3 /* TabBarView.swift in Sources */,
 				F776208F2C36BCD00094024D /* HospitalMapView.swift in Sources */,

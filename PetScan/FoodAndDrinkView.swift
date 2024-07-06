@@ -16,7 +16,7 @@ struct FoodAndDrinkView: View {
     @State var drinkOrFood: String = "drink"
     @State var nameOfFood: String = ""
     @State var amountOfFood: String = ""
-    @State var todayRemainFood: Double = 300
+    @State var todayRemainFood: Double = 300.0
     @State var todayRemainDrink: Int = 500
     
     var body: some View {
@@ -83,6 +83,7 @@ struct FoodAndDrinkView: View {
                                 todayRemainDrink -= Int(amountOfWater) ?? 0
                             } else if drinkOrFood == "food" {
                                 viewModel.addFoodRecord(date: date, name: nameOfFood, value: Double(amountOfFood) ?? 0)
+                                todayRemainFood -= Double(amountOfFood) ?? 0.0
                             }
                         }label: {
                             Text("+ 新增")
@@ -92,8 +93,8 @@ struct FoodAndDrinkView: View {
                                 .background(Color(red: 103/255, green: 118/255, blue: 121/255))
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
                                 .onAppear{
-                                    viewModel.todayFoodValue()
-                                    //                                    viewModel.todayDrinkValue()
+//                                    viewModel.todayFoodValue()
+//                                    viewModel.todayDrinkValue()
                                 }
                         }
                         
@@ -121,9 +122,9 @@ struct FoodAndDrinkView: View {
                                                     .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
                                             }
                                                 
-                                            //                                                .onAppear{
-                                            //                                                    viewModel.todayDrinkValue()
-                                            //                                                }
+//                                                .onAppear{
+//                                                    viewModel.todayDrinkValue()
+//                                                }
                                             
                                             Text("ml")
                                                 .font(.system(size: 20))
@@ -170,9 +171,9 @@ struct FoodAndDrinkView: View {
                                                 .font(.system(size: 60))
                                                 .fontWeight(.black)
                                                 .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
-                                                .onAppear{
-                                                    viewModel.todayFoodValue()
-                                                }
+//                                                .onAppear{
+//                                                    viewModel.todayFoodValue()
+//                                                }
                                             
                                             Text("公克")
                                                 .font(.system(size: 20))

@@ -12,7 +12,7 @@ struct UpdatePictureView: View {
     @State private var isCameraPickerPresented = false
     @State private var isPhotoPickerPresented = false
     @State private var isShowPhotoAlert = false
-    @ObservedObject var detector = DetectPetScanDog()
+    @StateObject private var viewModel = PetScanDogAugmentationViewModel()
     
     let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
@@ -102,11 +102,10 @@ struct UpdatePictureView: View {
                                 .background(selectedColor)
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
                         }
-                        .onAppear{
-                            if let image = self.selectedImage {
-                                self.detector.classifyImage(image)
-                            }
-                        }
+//                        .onAppear{
+//                            viewModel.predict(image: selectedImage! as! CGImage)
+//                            detector.classifyImage(selectedImage!)
+//                        }
                     }
                     else{
                         Button{
@@ -144,40 +143,6 @@ struct UpdatePictureView: View {
             }
         }
     }
-    
-//    private func classifyImage(_ image: UIImage) {
-//        guard let model = try? VNCoreMLModel(for: PetScanDogAugmentation().model) else {
-//            fatalError("Failed to load model")
-//        }
-//
-//        let request = VNCoreMLRequest(model: model) { request, error in
-//            if let results = request.results as? [VNClassificationObservation] {
-//                let topResult = results.first
-//                DispatchQueue.main.async {
-//                    self.classification = topResult?.identifier ?? "Unknown"
-//                }
-//            } else {
-//                DispatchQueue.main.async {
-//                    self.classification = "ErrorRequest: \(error?.localizedDescription ?? "unknown error")"
-//                }
-//            }
-//        }
-//
-//        guard let ciImage = CIImage(image: image) else {
-//            fatalError("Failed to convert UIImage to CIImage")
-//        }
-//
-//        let handler = VNImageRequestHandler(ciImage: ciImage, options: [:])
-//        DispatchQueue.global(qos: .userInteractive).async {
-//            do {
-//                try handler.perform([request])
-//            } catch {
-//                DispatchQueue.main.async {
-//                    self.classification = "ErrorHandler: \(error.localizedDescription)"
-//                }
-//            }
-//        }
-//    }
 }
 
 struct ImagePicker: UIViewControllerRepresentable {
