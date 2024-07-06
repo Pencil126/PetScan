@@ -16,6 +16,7 @@ struct UpdatePictureView: View {
     @State private var isCameraPickerPresented = false
     @State private var isPhotoPickerPresented = false
     @State private var isPhotoSelected = false
+    @State private var isShowPhotoAlert = false
     
     let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
@@ -111,7 +112,7 @@ struct UpdatePictureView: View {
                     }
                     else{
                         Button{
-                            //action
+                            self.isShowPhotoAlert = true
                         }label: {
                             Text("基礎問題檢測")
                                 .foregroundStyle(.white)
@@ -119,6 +120,11 @@ struct UpdatePictureView: View {
                                 .font(.system(size: 24))
                                 .background(selectedColor)
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
+                        }
+                        .alert("請拍攝或上傳圖片", isPresented: $isShowPhotoAlert) {
+                            Button("好"){
+                                isShowPhotoAlert = false
+                            }
                         }
                     }
                     
