@@ -29,11 +29,8 @@ struct DiseaseOutcomeView: View {
                         .frame(width: 350, height: 263)
                         .padding()
                         .onAppear{
-                            if let cgImage = selectedImage?.cgImage {
-                                viewModel.predict(image: cgImage)
-                            } else {
-                                print("Failed to convert UIImage to CGImage")
-                            }
+                            let cgImage = convertUItoCGImage(uiimage: selectedImage!)
+                            viewModel.predict(image: cgImage)
                         }
                     if viewModel.predictionResult == "AD" {
                         Text("異位性皮膚炎\n(Canine Atopic Dermatitis，CAD)")
@@ -93,6 +90,21 @@ struct DiseaseOutcomeView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
         }
+    }
+    
+    func convertCItoCGImage(ciImage: CIImage) -> CGImage {
+        let ciContext = CIContext.init()
+        let cgImage: CGImage = ciContext.createCGImage(ciImage, from: ciImage.extent)!
+        return cgImage
+    }
+    func convertUItoCGImage(uiimage: UIImage) -> CGImage {
+        var cgImage = uiimage.cgImage
+        
+        if cgImage == nil {
+            let ciImage = uiimage.ciImage
+            cgImage = self.convertCItoCGImage(ciImage: ciImage!)
+        }
+        return cgImage!
     }
 }
 

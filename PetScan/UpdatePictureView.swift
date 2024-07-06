@@ -23,17 +23,6 @@ struct UpdatePictureView: View {
     @State private var inputImage: UIImage?
     @State private var classificationLabel = "Tap 'Choose Picture' to select an image."
     
-    var model: VNCoreMLModel? = {
-        do {
-            // 请确保这里的模型名称与您的文件名一致
-            let config = MLModelConfiguration()
-            return try VNCoreMLModel(for: PetScanDogAugmentation(configuration: config).model)
-        } catch {
-            print("Failed to load the model: \(error)")
-            return nil
-        }
-    }()
-    
     var body: some View {
         NavigationStack {
             ZStack {
