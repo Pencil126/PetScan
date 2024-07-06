@@ -65,7 +65,7 @@ struct AskSimpleQuestionsView: View {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .frame(width: 350, height: 37)
-                                .foregroundStyle(.white)
+                                .foregroundStyle(Color(red: 226/255, green: 233/255, blue: 233/255))
                             Text("自家寵物是否有以下狀況發生")
                                 .font(.system(size: 20))
                         }
@@ -86,7 +86,7 @@ struct AskSimpleQuestionsView: View {
                         ZStack {
                             RoundedRectangle(cornerRadius: 10)
                                 .frame(width: 350, height: 37)
-                                .foregroundStyle(.white)
+                                .foregroundStyle(Color(red: 226/255, green: 233/255, blue: 233/255))
                             Text("環境評估")
                                 .font(.system(size: 20))
                         }

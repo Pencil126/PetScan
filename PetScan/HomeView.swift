@@ -72,7 +72,7 @@ struct HomeView: View {
                         .buttonStyle(HomeViewButtonStyle())
                         
                         NavigationLink(destination: MedicialHistroyView()){ //需修改
-                            Text("藥物歷史紀錄")
+                            Text("藥物服用歷史紀錄")
                         }
                         .buttonStyle(HomeViewButtonStyle())
                         

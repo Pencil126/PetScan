@@ -26,7 +26,7 @@ struct DiseaseOutcomeView: View {
                         .scaledToFit()
                         .frame(width: 350, height: 263)
                         .padding()
-                    Text("天皰瘡\n(Pemphigus foliaceus, PF)")
+                    Text("異位性皮膚炎\n(Canine Atopic Dermatitis，CAD)")
                         .font(.system(size: 20))
                         .multilineTextAlignment(.center)
                         .foregroundStyle(.white)
