@@ -12,6 +12,7 @@ struct UpdatePictureView: View {
     @State private var isCameraPickerPresented = false
     @State private var isPhotoPickerPresented = false
     @State private var isShowPhotoAlert = false
+    @State private var showDeleteAlert = false
     @StateObject private var viewModel = PetScanDogAugmentationViewModel()
     
     let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
@@ -34,13 +35,23 @@ struct UpdatePictureView: View {
                     Spacer()
                     if let selectedImage = selectedImage {
                         Button{
-                            isPhotoPickerPresented = true
+                            showDeleteAlert = true
                         }label: {
                             Image(uiImage: selectedImage)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 362, height: 362)
                                 .padding(EdgeInsets(top: 30, leading: 0, bottom: 30, trailing: 0))
+                        }
+                        .alert(isPresented: $showDeleteAlert) {
+                            Alert(
+                                title: Text("刪除照片"),
+                                message: Text("您確定要刪除照片嗎？"),
+                                primaryButton: .destructive(Text("刪除")) {
+                                    deleteImage()
+                                },
+                                secondaryButton: .cancel(Text("取消"))
+                            )
                         }
                     } else {
                         ZStack{
@@ -127,6 +138,9 @@ struct UpdatePictureView: View {
                 ImagePicker(sourceType: .photoLibrary, selectedImage: $selectedImage)
             }
         }
+    }
+    func deleteImage(){
+        selectedImage = nil
     }
 }
 
