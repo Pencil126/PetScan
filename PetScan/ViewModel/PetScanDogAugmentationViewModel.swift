@@ -33,6 +33,9 @@ class PetScanDogAugmentationViewModel: ObservableObject {
         do {
             let input = try PetScanDogAugmentationInput(imageWith: image)
             print("Predicting for image: \(image)")
+            if let pixelBuffer = input.image as CVPixelBuffer? {
+                print("Pixel buffer format: \(CVPixelBufferGetPixelFormatType(pixelBuffer))")
+            }
             let output = try model.prediction(input: input)
             DispatchQueue.main.async {
                 self.predictionResult = output.target

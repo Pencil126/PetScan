@@ -91,10 +91,6 @@ struct UpdatePictureView: View {
                                 .background(selectedColor)
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
                         }
-//                        .onAppear{
-//                            viewModel.predict(image: selectedImage! as! CGImage)
-//                            detector.classifyImage(selectedImage!)
-//                        }
                     }
                     else{
                         Button{
