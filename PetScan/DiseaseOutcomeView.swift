@@ -41,7 +41,7 @@ struct DiseaseOutcomeView: View {
                         Text("請儘速就醫")
                             .font(.system(size: 48))
                             .foregroundStyle(.white)
-                    }else if viewModel.predictionResult == "AMD" {
+                    } else if viewModel.predictionResult == "AMD" {
                         Text("濕疹\n(Acute Moist Dermatitis，AMD)")
                             .font(.system(size: 20))
                             .multilineTextAlignment(.center)
@@ -50,32 +50,19 @@ struct DiseaseOutcomeView: View {
                         Text("請儘速就醫")
                             .font(.system(size: 48))
                             .foregroundStyle(.white)
-                    }else{
+                    } else {
                         Text("健康")
                             .font(.system(size: 20))
                             .multilineTextAlignment(.center)
                             .foregroundStyle(.white)
                             .padding()
                     }
-//                    if !viewModel.predictionResult.isEmpty {
-//                        Text("Prediction: \(viewModel.predictionResult)")
-//                            .font(.title)
-//                            .padding()
-//                        
-//                        Text("Probabilities:")
-//                            .font(.headline)
-//                            .padding(.top)
-//                        
-//                        List(viewModel.predictionProbabilities.sorted(by: >), id: \.key) { key, value in
-//                            Text("\(key): \(value * 100, specifier: "%.2f")%")
-//                        }
-//                    }
-                    NavigationLink{
+                    NavigationLink {
                         HospitalMapView()
-                    }label: {
+                    } label: {
                         Text("獸醫院地圖")
                             .foregroundStyle(.white)
-                            .frame(width: 350,height: 65)
+                            .frame(width: 350, height: 65)
                             .font(.system(size: 24))
                             .background(Color(red: 103/255, green: 118/255, blue: 121/255))
                             .clipShape(RoundedRectangle(cornerRadius: 30))

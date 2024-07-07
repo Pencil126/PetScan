@@ -9,6 +9,8 @@ import Foundation
 import SwiftUI
 import Vision
 import CoreML
+import UIKit
+import CoreVideo
 
 class PetScanDogAugmentationViewModel: ObservableObject {
     @Published var predictionResult: String = ""
