@@ -30,7 +30,6 @@ struct UpdatePictureView: View {
                 backgroundColor
                     .ignoresSafeArea()
                 themeColor
-                    .frame(height: 710)
                 VStack {
                     Spacer()
                     if let selectedImage = selectedImage {

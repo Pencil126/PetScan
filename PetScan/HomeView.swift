@@ -20,7 +20,6 @@ struct HomeView: View {
                 backgroundColor
                     .ignoresSafeArea()
                 themeColor
-                    .frame(height: 710)
                 VStack{
                     Spacer()
                         .frame(height: 45)
@@ -66,12 +65,12 @@ struct HomeView: View {
                     
                     //功能按鍵區塊
                     VStack{
-                        NavigationLink(destination: DrinkRecordView()){ //需修改
+                        NavigationLink(destination: DrinkRecordView()){
                             Text("食物與喝水量歷史紀錄")
                         }
                         .buttonStyle(HomeViewButtonStyle())
                         
-                        NavigationLink(destination: MedicialHistroyView()){ //需修改
+                        NavigationLink(destination: MedicialHistroyView()){
                             Text("藥物服用歷史紀錄")
                         }
                         .buttonStyle(HomeViewButtonStyle())
@@ -82,9 +81,9 @@ struct HomeView: View {
                         }
                         .buttonStyle(HomeViewButtonStyle())
                         
-                        NavigationLink(destination: DrinkRecordView()){ //需修改
+                        Button(action: {}, label: {
                             Text("皮膚病檢測結果歷史紀錄")
-                        }
+                        })
                         .buttonStyle(HomeViewButtonStyle())
                     }
                 }

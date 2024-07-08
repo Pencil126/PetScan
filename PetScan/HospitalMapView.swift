@@ -19,7 +19,6 @@ struct HospitalMapView: View {
                 backgroundColor
                     .ignoresSafeArea()
                 themeColor
-                    .frame(height: 710)
                 VStack {
                     SearchBar(text: $searchBarText)
                     MapView()

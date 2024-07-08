@@ -25,8 +25,6 @@ struct FoodAndDrinkView: View {
                 backgroundColor
                     .ignoresSafeArea()
                 themeColor
-                    .frame(height: 710)
-                
                 VStack {
                     Spacer()
                         .frame(height: 25)

@@ -19,7 +19,6 @@ struct QuestionsView: View {
                 backgroundColor
                     .ignoresSafeArea()
                 themeColor
-                    .frame(height: 710)
                 VStack{
                     ZStack{
                         RoundedRectangle(cornerRadius: 10)

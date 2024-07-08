@@ -60,7 +60,6 @@ struct AskSimpleQuestionsView: View {
                 backgroundColor
                     .ignoresSafeArea()
                 themeColor
-                    .frame(height: 710)
                 VStack {
                     VStack {
                         ZStack {
@@ -103,7 +102,7 @@ struct AskSimpleQuestionsView: View {
                         }
                     }
                     NavigationLink {
-                        DiseaseOutcomeView(selectedImage: selectedImage)
+                        DiseaseOutcomeView(selectedImage: selectedImage, isOn1: isOn1, isOn2: isOn2, isOn3: isOn3, isOn4: isOn4, isOn5: isOn5, isOn6: isOn6, isOn7: isOn7, isOn8: isOn8)
                     } label: {
                         Text("查看檢測結果")
                             .foregroundStyle(.white)
