@@ -13,6 +13,7 @@ struct HomeView: View {
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
 //    let user: [String: Any]
     @StateObject var viewModel = FirestoreViewModel()
+    @Binding var drinkRecords: [DrinkRecord]
     
     var body: some View {
         NavigationStack{
@@ -65,7 +66,7 @@ struct HomeView: View {
                     
                     //功能按鍵區塊
                     VStack{
-                        NavigationLink(destination: DrinkRecordView()){
+                        NavigationLink(destination: DrinkRecordView( drinkRecords: $drinkRecords)){
                             Text("食物與喝水量歷史紀錄")
                         }
                         .buttonStyle(HomeViewButtonStyle())

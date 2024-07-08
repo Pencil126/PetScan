@@ -18,6 +18,7 @@ struct FoodAndDrinkView: View {
     @State var amountOfFood: String = ""
     @State var todayRemainFood: Double = 300.0
     @State var todayRemainDrink: Int = 500
+    @Binding var drinkRecords: [DrinkRecord]
     
     var body: some View {
         NavigationStack{
@@ -79,6 +80,7 @@ struct FoodAndDrinkView: View {
                             if drinkOrFood == "drink" {
                                 viewModel.addDrinkRecord(date: date, value: Int(amountOfWater) ?? 0)
                                 todayRemainDrink -= Int(amountOfWater) ?? 0
+                                saveRecord()
                             } else if drinkOrFood == "food" {
                                 viewModel.addFoodRecord(date: date, name: nameOfFood, value: Double(amountOfFood) ?? 0)
                                 todayRemainFood -= Double(amountOfFood) ?? 0.0
@@ -91,8 +93,8 @@ struct FoodAndDrinkView: View {
                                 .background(Color(red: 103/255, green: 118/255, blue: 121/255))
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
                                 .onAppear{
-//                                    viewModel.todayFoodValue()
-//                                    viewModel.todayDrinkValue()
+                                    //                                    viewModel.todayFoodValue()
+                                    //                                    viewModel.todayDrinkValue()
                                 }
                         }
                         
@@ -119,10 +121,10 @@ struct FoodAndDrinkView: View {
                                                     .fontWeight(.black)
                                                     .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
                                             }
-                                                
-//                                                .onAppear{
-//                                                    viewModel.todayDrinkValue()
-//                                                }
+                                            
+                                            //                                                .onAppear{
+                                            //                                                    viewModel.todayDrinkValue()
+                                            //                                                }
                                             
                                             Text("ml")
                                                 .font(.system(size: 20))
@@ -169,9 +171,9 @@ struct FoodAndDrinkView: View {
                                                 .font(.system(size: 60))
                                                 .fontWeight(.black)
                                                 .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
-//                                                .onAppear{
-//                                                    viewModel.todayFoodValue()
-//                                                }
+                                            //                                                .onAppear{
+                                            //                                                    viewModel.todayFoodValue()
+                                            //                                                }
                                             
                                             Text("公克")
                                                 .font(.system(size: 20))
@@ -184,7 +186,7 @@ struct FoodAndDrinkView: View {
                         }
                         
                         NavigationLink{
-                            DrinkRecordView()
+                            DrinkRecordView(drinkRecords: $drinkRecords)
                         }label: {
                             Text("歷史紀錄")
                                 .foregroundStyle(.white)
@@ -209,6 +211,21 @@ struct FoodAndDrinkView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
         }
+    }
+    
+    private func saveRecord() {
+        if let amount = Int(amountOfWater) {
+            let record = DrinkRecord(time: formattedDate(), value: amount)
+            drinkRecords.append(record)
+            if !drinkRecords.isEmpty {
+                drinkRecords.remove(at: 0)
+            }
+        }
+    }
+    private func formattedDate() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd"
+        return formatter.string(from: date)
     }
     
     private var drinkOrFoodSelectionButtons: some View {
