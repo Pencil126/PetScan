@@ -8,12 +8,20 @@
 import SwiftUI
 import Charts
 
+struct DrinkRecord: Identifiable {
+    var id = UUID()
+    var time: String
+    var value: Int
+}
+
 struct DrinkRecordView: View {
     let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
     let selectedColor: Color = Color(red: 103/255, green: 118/255, blue: 121/255)
     
     @State var drinkOrFood: String = "drink"
+    @State private var averageValue: Int = 0
+    @Binding var drinkRecords : [DrinkRecord]
     
     var body: some View {
         NavigationStack {
@@ -35,11 +43,10 @@ struct DrinkRecordView: View {
                                     .foregroundColor(selectedColor)
                                 
                                 HStack {
-                                    Text("707")
+                                    Text(String(averageValue))
                                         .font(.system(size: 60))
                                         .fontWeight(.black)
                                         .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
-                                    //改了他的樣式
                                     
                                     Text("ml")
                                         .font(.system(size: 20))
@@ -48,9 +55,12 @@ struct DrinkRecordView: View {
                             }
                             .padding()
                             
-                            ChartView()
+                            ChartView(drinkRecords: drinkRecords)
                                 .frame(height: 200)
                                 .padding(.horizontal)
+                                .onAppear {
+                                    calculateAverage()
+                                }
                         }
                     }
                     .padding(4)
@@ -76,7 +86,7 @@ struct DrinkRecordView: View {
                     
                     // Add Record Button
                     NavigationLink{
-                        FoodAndDrinkView()
+                        FoodAndDrinkView(drinkRecords: $drinkRecords)
                     }label: {
                         Text("新增紀錄")
                             .foregroundStyle(.white)
@@ -98,6 +108,17 @@ struct DrinkRecordView: View {
             .navigationBarTitleDisplayMode(.inline)
         }
     }
+    private func calculateAverage() {
+            guard !drinkRecords.isEmpty else {
+                averageValue = 0
+                return
+            }
+            
+            let total = drinkRecords.reduce(0) { $0 + $1.value }
+            let average = Double(total) / Double(drinkRecords.count)
+            
+            averageValue = Int(average.rounded())
+        }
     private var drinkOrFoodSelectionButtons: some View {
         HStack(spacing: 0) {
             Button {
@@ -143,40 +164,17 @@ struct DrinkRecordView: View {
         let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
         let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
         let selectedColor: Color = Color(red: 103/255, green: 118/255, blue: 121/255)
+        var drinkRecords: [DrinkRecord]
         var body: some View {
             Chart {
-                BarMark(
-                    x: .value("Day", "5/18"),
-                    y: .value("Drinks", 600)
-                )
-                BarMark(
-                    x: .value("Day", "5/19"),
-                    y: .value("Drinks", 650)
-                )
-                BarMark(
-                    x: .value("Day", "5/20"),
-                    y: .value("Drinks", 680)
-                )
-                BarMark(
-                    x: .value("Day", "5/21"),
-                    y: .value("Drinks", 620)
-                )
-                BarMark(
-                    x: .value("Day", "5/22"),
-                    y: .value("Drinks", 780)
-                )
-                BarMark(
-                    x: .value("Day", "5/23"),
-                    y: .value("Drinks", 700)
-                )
-                BarMark(
-                    x: .value("Day", "5/24"),
-                    y: .value("Drinks", 710)
-                )
-                BarMark(
-                    x: .value("Day", "5/25"),
-                    y: .value("Drinks", 650)
-                )
+                
+                ForEach(drinkRecords) { record in
+                    BarMark(
+                        x: .value("Day", record.time),
+                        y: .value("Drinks", Double(record.value))
+                    )
+                }
+                
             }
             .foregroundStyle(selectedColor)
             .chartYScale(domain: 0...800)

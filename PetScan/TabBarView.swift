@@ -12,6 +12,17 @@ struct TabBarView: View {
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
     @State public var tabViewSelection = 2
     
+    @State private var drinkRecords: [DrinkRecord] = [
+            DrinkRecord(time: "7/1", value: 600),
+            DrinkRecord(time: "7/2", value: 650),
+            DrinkRecord(time: "7/3", value: 680),
+            DrinkRecord(time: "7/4", value: 620),
+            DrinkRecord(time: "7/5", value: 780),
+            DrinkRecord(time: "7/6", value: 700),
+            DrinkRecord(time: "7/8", value: 710),
+            DrinkRecord(time: "7/9", value: 650)
+        ]
+    
     var body: some View {
         TabView(selection: $tabViewSelection){
             UpdatePictureView()
@@ -22,7 +33,7 @@ struct TabBarView: View {
                     }
                 }
                 .tag(0)
-            FoodAndDrinkView()
+            FoodAndDrinkView(drinkRecords: $drinkRecords)
                 .tabItem {
                     VStack{
                         Image(systemName: "drop.fill")
@@ -30,7 +41,7 @@ struct TabBarView: View {
                     }
                 }
                 .tag(1)
-            HomeView()
+            HomeView(drinkRecords: $drinkRecords)
                 .tabItem {
                     VStack{
                         Image(systemName: "house")
