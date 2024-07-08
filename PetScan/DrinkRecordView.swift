@@ -12,6 +12,7 @@ struct DrinkRecord: Identifiable {
     var id = UUID()
     var time: String
     var value: Int
+    var isAnimated: Bool = false
 }
 
 struct DrinkRecordView: View {
@@ -22,6 +23,7 @@ struct DrinkRecordView: View {
     @State var drinkOrFood: String = "drink"
     @State private var averageValue: Int = 0
     @Binding var drinkRecords : [DrinkRecord]
+    @State private var isAnimated: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -55,7 +57,7 @@ struct DrinkRecordView: View {
                             }
                             .padding()
                             
-                            ChartView(drinkRecords: drinkRecords)
+                            ChartView(drinkRecords: $drinkRecords)
                                 .frame(height: 200)
                                 .padding(.horizontal)
                                 .onAppear {
@@ -98,6 +100,7 @@ struct DrinkRecordView: View {
                     .padding(4)
                     
                 }
+                
             }
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -106,19 +109,38 @@ struct DrinkRecordView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear(perform: {
+                animateChart()
+            })
         }
     }
-    private func calculateAverage() {
-            guard !drinkRecords.isEmpty else {
-                averageValue = 0
-                return
+    
+    func animateChart(){
+        guard !isAnimated else { return }
+        isAnimated = true
+        
+        $drinkRecords.enumerated().forEach{index , element in
+            let delay = Double(index) * 0.2
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay){
+                withAnimation(.easeInOut(duration: 10)){
+                    element.wrappedValue.isAnimated = true
+                }
             }
-            
-            let total = drinkRecords.reduce(0) { $0 + $1.value }
-            let average = Double(total) / Double(drinkRecords.count)
-            
-            averageValue = Int(average.rounded())
         }
+    }
+    
+    
+    private func calculateAverage() {
+        guard !drinkRecords.isEmpty else {
+            averageValue = 0
+            return
+        }
+        
+        let total = drinkRecords.reduce(0) { $0 + $1.value }
+        let average = Double(total) / Double(drinkRecords.count)
+        
+        averageValue = Int(average.rounded())
+    }
     private var drinkOrFoodSelectionButtons: some View {
         HStack(spacing: 0) {
             Button {
@@ -164,14 +186,17 @@ struct DrinkRecordView: View {
         let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
         let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
         let selectedColor: Color = Color(red: 103/255, green: 118/255, blue: 121/255)
-        var drinkRecords: [DrinkRecord]
+        @Binding var drinkRecords: [DrinkRecord]
+        
+        
+        
         var body: some View {
             Chart {
                 
                 ForEach(drinkRecords) { record in
                     BarMark(
                         x: .value("Day", record.time),
-                        y: .value("Drinks", Double(record.value))
+                        y: .value("Drinks", record.isAnimated ? Double(record.value) : 0)
                     )
                 }
                 
@@ -180,6 +205,7 @@ struct DrinkRecordView: View {
             .chartYScale(domain: 0...800)
             .frame(width: 300,height: 200)
         }
+        
     }
 }
 #Preview {
