@@ -22,6 +22,7 @@
 		D615D38F2C2C0E07007039EE /* PetInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D615D38E2C2C0E07007039EE /* PetInfo.swift */; };
 		D615D3912C2C1FF9007039EE /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D615D3902C2C1FF9007039EE /* FirebaseFirestoreSwift */; };
 		D615D3952C3016F2007039EE /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = D615D3942C3016F2007039EE /* FirebaseStorage */; };
+		D61C33332C3BF1EE00B43573 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = D61C33322C3BF1EE00B43573 /* .gitignore */; };
 		D675F3D02C38EB5F00DA3350 /* PetScanDogAugmentation.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D675F3CF2C38EB5F00DA3350 /* PetScanDogAugmentation.mlmodel */; };
 		D675F3D22C39A83700DA3350 /* PetScanDogAugmentationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D675F3D12C39A83700DA3350 /* PetScanDogAugmentationViewModel.swift */; };
 		D6DBAB8C2C2435A2005F854E /* .gitattributes in Resources */ = {isa = PBXBuildFile; fileRef = D6DBAB8B2C2435A2005F854E /* .gitattributes */; };
@@ -52,6 +53,7 @@
 		D615D3892C259625007039EE /* FirestoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreViewModel.swift; sourceTree = "<group>"; };
 		D615D38C2C2C0D85007039EE /* UsersPet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersPet.swift; sourceTree = "<group>"; };
 		D615D38E2C2C0E07007039EE /* PetInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetInfo.swift; sourceTree = "<group>"; };
+		D61C33322C3BF1EE00B43573 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		D675F3CF2C38EB5F00DA3350 /* PetScanDogAugmentation.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = PetScanDogAugmentation.mlmodel; sourceTree = "<group>"; };
 		D675F3D12C39A83700DA3350 /* PetScanDogAugmentationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetScanDogAugmentationViewModel.swift; sourceTree = "<group>"; };
 		D6DBAB8B2C2435A2005F854E /* .gitattributes */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitattributes; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				D615D3842C257218007039EE /* ViewModel */,
 				D606CF852C16F74000CD44D9 /* PetScanApp.swift */,
 				D6DBAB8B2C2435A2005F854E /* .gitattributes */,
+				D61C33322C3BF1EE00B43573 /* .gitignore */,
 				D606CF872C16F74000CD44D9 /* ContentView.swift */,
 				F7F5DBEE2C3545CE001294A3 /* TabBarView.swift */,
 				F77620902C36C9650094024D /* QuestionsView.swift */,
@@ -238,6 +241,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D61C33332C3BF1EE00B43573 /* .gitignore in Resources */,
 				D606CF8D2C16F74100CD44D9 /* Preview Assets.xcassets in Resources */,
 				D615D3832C252724007039EE /* GoogleService-Info.plist in Resources */,
 				D6DBAB8C2C2435A2005F854E /* .gitattributes in Resources */,
