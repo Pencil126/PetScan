@@ -13,14 +13,14 @@ struct TabBarView: View {
     @State public var tabViewSelection = 2
     
     @State private var drinkRecords: [DrinkRecord] = [
-            DrinkRecord(time: "7/02", value: 600),
-            DrinkRecord(time: "7/03", value: 650),
-            DrinkRecord(time: "7/04", value: 680),
-            DrinkRecord(time: "7/05", value: 620),
-            DrinkRecord(time: "7/06", value: 780),
-            DrinkRecord(time: "7/07", value: 700),
-            DrinkRecord(time: "7/08", value: 710),
-            DrinkRecord(time: "7/09", value: 650)
+            DrinkRecord(time: "07/02", value: 600),
+            DrinkRecord(time: "07/03", value: 650),
+            DrinkRecord(time: "07/04", value: 680),
+            DrinkRecord(time: "07/05", value: 620),
+            DrinkRecord(time: "07/06", value: 780),
+            DrinkRecord(time: "07/07", value: 700),
+            DrinkRecord(time: "07/08", value: 710),
+            DrinkRecord(time: "07/09", value: 650)
         ]
     
     var body: some View {
