@@ -7,12 +7,38 @@
 
 import SwiftUI
 import Charts
+import FirebaseFirestore
 
 struct DrinkRecord: Identifiable {
     var id = UUID()
     var time: String
     var value: Int
+    var timestamp: Date?
     var isAnimated: Bool = false
+    
+    init(id: UUID = UUID(), time: String, value: Int, timestamp: Date? = nil, isAnimated: Bool) {
+        self.id = id
+        self.time = time
+        self.value = value
+        self.timestamp = timestamp
+        self.isAnimated = isAnimated
+    }
+    
+    init?(from dictionary: [String: Any]) {
+        guard let value = dictionary["value"] as? Int else { return nil }
+
+        if let timestamp = dictionary["time"] as? Timestamp {
+            let date = timestamp.dateValue()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/dd"
+            self.time = formatter.string(from: date)
+            self.timestamp = date
+        } else {
+            return nil
+        }
+
+        self.value = value
+    }
 }
 
 struct DrinkRecordView: View {
@@ -88,7 +114,7 @@ struct DrinkRecordView: View {
                     
                     // Add Record Button
                     NavigationLink{
-                        FoodAndDrinkView(drinkRecords: $drinkRecords)
+                        FoodAndDrinkView()
                     }label: {
                         Text("新增紀錄")
                             .foregroundStyle(.white)
@@ -141,6 +167,7 @@ struct DrinkRecordView: View {
         
         averageValue = Int(average.rounded())
     }
+    
     private var drinkOrFoodSelectionButtons: some View {
         HStack(spacing: 0) {
             Button {

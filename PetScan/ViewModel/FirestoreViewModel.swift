@@ -17,6 +17,7 @@ class FirestoreViewModel: ObservableObject {
     
     @Published var totalFoodValue: Double = 0.0
     @Published var totalDrinkValue: Int = 0
+    @Published var drinkRecords: [DrinkRecord] = []
     
     private var db = Firestore.firestore()
     
@@ -105,7 +106,7 @@ class FirestoreViewModel: ObservableObject {
     func fetchDrink(_ drinkData: [[String: Any]]) -> [Drink] {
         return drinkData.compactMap { item in
             let timestamp = (item["time"] as? Timestamp)?.dateValue() ?? Date()
-            let value = item["value"] as? Double ?? 0.0
+            let value = item["value"] as? Int ?? 0
             return Drink(timestamp: timestamp, value: value)
         }
     }
@@ -220,46 +221,26 @@ class FirestoreViewModel: ObservableObject {
         }
     }
     
-//    func todayDrinkValue() {
-//        let ref = db.collection("PetInfo").document(currentPetObject)
-//        let today = Calendar.current.startOfDay(for: Date())
-//        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today)!
-//        let today = Calendar.current.date(byAdding: .hour, value: 8, to: todayGMT)!
-//        let tomorrow = Calendar.current.date(byAdding: .hour, value: 8, to: tomorrowGMT)!
-//        let todayTimestamp = Timestamp(date: today)
-//        let tomorrowTimestamp = Timestamp(date: tomorrow)
-//        let limit = 385
-//        .whereField("time", isLessThanOrEqualTo: today).whereField("time", isLessThan: tomorrow)
-//        print("Today: \(today), Tomorrow: \(tomorrow)")
-//        print("Query range: \(todayTimestamp) to \(tomorrowTimestamp)")
-//        let drinkData = data["drink"] as? [[String: Any]] ?? []
-//        let drink = fetchDrink(drinkData)
-//        ref.getDocuments { (snapshot, error) in
-//            if let error = error {
-//                print("todayDrinkValue Error getting documents: \(error)")
-//            } else if let snapshot = snapshot {
-//                print("Documents fetched successfully, Number of documents: \(snapshot.documents.count)")
-//                var totalValue = snapshot.documents.reduce(0) { (sum, document) -> Int in
-//                    let data = document.data()
-//                    if let entries = data["entries"] as? [[String: Any]] {
-//                        // 累加所有符合今天日期的 value
-//                        return entries.reduce(sum) { (subSum, entry) -> Int in
-//                            if let timestamp = entry["time"] as? Timestamp,
-//                               let value = entry["value"] as? Int,
-//                               Calendar.current.isDate(timestamp.dateValue(), inSameDayAs: today) {
-//                                return subSum + value
-//                            }
-//                            return subSum
-//                        }
-//                    }
-//                    return sum
-//                }
-//                print("Total value for today is: \(totalValue)")
-//                totalValue = limit - totalValue
-//                DispatchQueue.main.async {
-//                    self.totalDrinkValue = totalValue
-//                }
-//            }
-//        }
-//    }
+    func todayDrinkValue() -> Int {
+        guard let pet = currentPet else {
+            print("No current pet set.")
+            return 0
+        }
+                
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        
+        let todayRecords = pet.drink.filter { drink in
+            calendar.isDate(drink.timestamp, inSameDayAs: Date())
+        }
+        
+        let totalDrink = todayRecords.reduce(0) { $0 + $1.value }
+        
+        DispatchQueue.main.async {
+            self.totalDrinkValue = totalDrink
+        }
+        
+        print("todayDrinkValue: \(totalDrink)")
+        return totalDrink
+    }
 }

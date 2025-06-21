@@ -12,16 +12,16 @@ struct TabBarView: View {
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
     @State public var tabViewSelection = 2
     
-    @State private var drinkRecords: [DrinkRecord] = [
-            DrinkRecord(time: "07/02", value: 600),
-            DrinkRecord(time: "07/03", value: 650),
-            DrinkRecord(time: "07/04", value: 680),
-            DrinkRecord(time: "07/05", value: 620),
-            DrinkRecord(time: "07/06", value: 780),
-            DrinkRecord(time: "07/07", value: 700),
-            DrinkRecord(time: "07/08", value: 710),
-            DrinkRecord(time: "07/09", value: 650)
-        ]
+//    @State private var drinkRecords: [DrinkRecord] = [
+//            DrinkRecord(time: "07/02", value: 600),
+//            DrinkRecord(time: "07/03", value: 650),
+//            DrinkRecord(time: "07/04", value: 680),
+//            DrinkRecord(time: "07/05", value: 620),
+//            DrinkRecord(time: "07/06", value: 780),
+//            DrinkRecord(time: "07/07", value: 700),
+//            DrinkRecord(time: "07/08", value: 710),
+//            DrinkRecord(time: "07/09", value: 650)
+//        ]
     
     var body: some View {
         TabView(selection: $tabViewSelection){
@@ -33,7 +33,7 @@ struct TabBarView: View {
                     }
                 }
                 .tag(0)
-            FoodAndDrinkView(drinkRecords: $drinkRecords)
+            FoodAndDrinkView()
                 .tabItem {
                     VStack{
                         Image(systemName: "drop.fill")
@@ -41,7 +41,7 @@ struct TabBarView: View {
                     }
                 }
                 .tag(1)
-            HomeView(drinkRecords: $drinkRecords)
+            HomeView()
                 .tabItem {
                     VStack{
                         Image(systemName: "house")

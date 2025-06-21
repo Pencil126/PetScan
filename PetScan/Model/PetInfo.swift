@@ -44,7 +44,7 @@ struct Food: Codable {
 
 struct Drink: Codable {
     var timestamp: Date
-    var value: Double
+    var value: Int
     
     enum CodingKeys: CodingKey {
         case timestamp

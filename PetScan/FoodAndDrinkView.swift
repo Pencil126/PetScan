@@ -17,8 +17,8 @@ struct FoodAndDrinkView: View {
     @State var nameOfFood: String = ""
     @State var amountOfFood: String = ""
     @State var todayRemainFood: Double = 300.0
-    @State var todayRemainDrink: Int = 500
-    @Binding var drinkRecords: [DrinkRecord]
+    @State var todayRemainDrink: Int = 0
+    @State private var isDataLoaded: Bool = false
     
     var body: some View {
         NavigationStack{
@@ -80,7 +80,7 @@ struct FoodAndDrinkView: View {
                             if drinkOrFood == "drink" {
                                 viewModel.addDrinkRecord(date: date, value: Int(amountOfWater) ?? 0)
                                 todayRemainDrink -= Int(amountOfWater) ?? 0
-                                saveRecord()
+//                                saveRecord()
                             } else if drinkOrFood == "food" {
                                 viewModel.addFoodRecord(date: date, name: nameOfFood, value: Double(amountOfFood) ?? 0)
                                 todayRemainFood -= Double(amountOfFood) ?? 0.0
@@ -185,18 +185,16 @@ struct FoodAndDrinkView: View {
                             .padding(EdgeInsets(top: 30, leading: 0, bottom: 20, trailing: 0))
                         }
                         
-                        NavigationLink{
-                            DrinkRecordView(drinkRecords: $drinkRecords)
-                        }label: {
-                            Text("歷史紀錄")
-                                .foregroundStyle(.white)
-                                .frame(width: 350,height: 65)
-                                .font(.system(size: 24))
-                                .background(Color(red: 103/255, green: 118/255, blue: 121/255))
-                                .clipShape(RoundedRectangle(cornerRadius: 30))
-                        }
-                        
-                        
+//                        NavigationLink{
+//                            DrinkRecordView()
+//                        }label: {
+//                            Text("歷史紀錄")
+//                                .foregroundStyle(.white)
+//                                .frame(width: 350,height: 65)
+//                                .font(.system(size: 24))
+//                                .background(Color(red: 103/255, green: 118/255, blue: 121/255))
+//                                .clipShape(RoundedRectangle(cornerRadius: 30))
+//                        }
                         
                     }
                     
@@ -210,23 +208,46 @@ struct FoodAndDrinkView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-        }
-    }
-    
-    private func saveRecord() {
-        if let amount = Int(amountOfWater) {
-            let record = DrinkRecord(time: formattedDate(), value: amount)
-            drinkRecords.append(record)
-            if !drinkRecords.isEmpty {
-                drinkRecords.remove(at: 0)
+            .onAppear {
+                checkDataAndUpdateValues()
+            }
+            .onChange(of: viewModel.currentPet?.petID) { _ in
+                checkDataAndUpdateValues()
             }
         }
     }
-    private func formattedDate() -> String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MM/dd"
-        return formatter.string(from: date)
+    
+    private func checkDataAndUpdateValues() {
+        if viewModel.currentPet != nil {
+            updateRemainingValues()
+            isDataLoaded = true
+        } else {
+            // 如果還沒有資料，設定一個延遲再次檢查
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                checkDataAndUpdateValues()
+            }
+        }
     }
+    
+    private func updateRemainingValues() {
+        todayRemainDrink = 500 - viewModel.todayDrinkValue()
+        // 類似地可以實現食物的計算
+    }
+//    private func saveRecord() {
+//        if let amount = Int(amountOfWater) {
+//            let record = DrinkRecord(time: formattedDate(), value: amount)
+//            drinkRecords.append(record)
+//            if !drinkRecords.isEmpty {
+//                drinkRecords.remove(at: 0)
+//            }
+//        }
+//    }
+//    private func formattedDate() -> String {
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "MM/dd"
+//        return formatter.string(from: date)
+//    }
+
     
     private var drinkOrFoodSelectionButtons: some View {
         HStack(spacing: 0) {
