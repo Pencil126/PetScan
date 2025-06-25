@@ -80,7 +80,6 @@ struct FoodAndDrinkView: View {
                             if drinkOrFood == "drink" {
                                 viewModel.addDrinkRecord(date: date, value: Int(amountOfWater) ?? 0)
                                 todayRemainDrink -= Int(amountOfWater) ?? 0
-//                                saveRecord()
                             } else if drinkOrFood == "food" {
                                 viewModel.addFoodRecord(date: date, name: nameOfFood, value: Double(amountOfFood) ?? 0)
                                 todayRemainFood -= Double(amountOfFood) ?? 0.0

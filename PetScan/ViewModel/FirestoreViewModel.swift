@@ -204,7 +204,18 @@ class FirestoreViewModel: ObservableObject {
     }
     
     func addDrinkRecord(date: Date, value: Int) {
+        guard let pet = currentPet else {
+            print("No current pet set.")
+            return
+        }
+        
+        guard value > 0 else {
+            print("錯誤：飲水量必須大於0")
+            return
+        }
+        
         let ref = db.collection("PetInfo").document(currentPetObject)
+        
         let newRecord: [String: Any] = [
                 "time": Timestamp(date: date),
                 "value": value
@@ -212,7 +223,7 @@ class FirestoreViewModel: ObservableObject {
         
         ref.updateData([
             "drink": FieldValue.arrayUnion([newRecord])
-        ]) { error in
+        ]) { [weak self] error in
             if let error = error {
                 print("Error updating document: \(error)")
             } else {
@@ -228,7 +239,6 @@ class FirestoreViewModel: ObservableObject {
         }
                 
         let calendar = Calendar.current
-        let today = calendar.startOfDay(for: Date())
         
         let todayRecords = pet.drink.filter { drink in
             calendar.isDate(drink.timestamp, inSameDayAs: Date())
