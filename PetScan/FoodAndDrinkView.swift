@@ -76,7 +76,9 @@ struct FoodAndDrinkView: View {
                             if drinkOrFood == "drink" {
                                 viewModel.addDrinkRecord(date: date, value: Int(amountOfWater) ?? 0)
                                 amountOfWater = ""
-                                updateRemainingValues()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    updateRemainingValues()
+                                }
                             } else if drinkOrFood == "food" {
                                 viewModel.addFoodRecord(date: date, name: nameOfFood, value: Double(amountOfFood) ?? 0)
                                 todayRemainFood -= Double(amountOfFood) ?? 0.0
@@ -88,10 +90,6 @@ struct FoodAndDrinkView: View {
                                 .font(.system(size: 24))
                                 .background(Color(red: 103/255, green: 118/255, blue: 121/255))
                                 .clipShape(RoundedRectangle(cornerRadius: 30))
-                                .onAppear{
-                                    //                                    viewModel.todayFoodValue()
-                                    //                                    viewModel.todayDrinkValue()
-                                }
                         }
                         
                         if drinkOrFood == "drink"{
@@ -112,7 +110,7 @@ struct FoodAndDrinkView: View {
                                                     .fontWeight(.black)
                                                     .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
                                             }else{
-                                                Text("\(todayRemainDrink)")
+                                                Text("\(max(0, todayRemainDrink))")
                                                     .font(.system(size: 60))
                                                     .fontWeight(.black)
                                                     .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))

@@ -117,7 +117,7 @@ class FirestoreViewModel: ObservableObject {
     
     func currentPetName() -> String {
         if let name = currentPet?.name {
-            return name  // 轉換為整數以去除小數點，然後轉換為字符串
+            return name
         } else {
             return "Loading"
         }
@@ -125,7 +125,7 @@ class FirestoreViewModel: ObservableObject {
     
     func currentPetType() -> String {
         if let type = currentPet?.type {
-            return type  // 轉換為整數以去除小數點，然後轉換為字符串
+            return type
         } else {
             return "Loading"
         }
@@ -133,7 +133,7 @@ class FirestoreViewModel: ObservableObject {
     
     func currentPetWeight() -> String {
         if let weight = currentPet?.weight {
-            return (String(weight))  // 轉換為整數以去除小數點，然後轉換為字符串
+            return (String(weight))
         } else {
             return "loading"
         }
@@ -204,7 +204,7 @@ class FirestoreViewModel: ObservableObject {
     }
     
     func addDrinkRecord(date: Date, value: Int) {
-        guard currentPet != nil else {
+        guard var pet = currentPet else {
             print("No current pet set.")
             return
         }
@@ -228,6 +228,13 @@ class FirestoreViewModel: ObservableObject {
                 print("Error updating document: \(error)")
             } else {
                 print("Document successfully updated")
+                
+                let newDrink = Drink(timestamp: date, value: value)
+                DispatchQueue.main.async {
+                    // 重新創建整個 pet 物件來觸發更新
+                    pet.drink.append(newDrink)
+                    self?.currentPet = pet
+                }
             }
         }
     }
@@ -245,10 +252,7 @@ class FirestoreViewModel: ObservableObject {
         }
         
         let totalDrink = todayRecords.reduce(0) { $0 + $1.value }
-        
-        DispatchQueue.main.async {
-            self.totalDrinkValue = totalDrink
-        }
+        self.totalDrinkValue = totalDrink
         
         print("todayDrinkValue: \(totalDrink)")
         return totalDrink
