@@ -37,12 +37,10 @@ struct FoodAndDrinkView: View {
                         Form{
                             Section{
                                 DatePicker("日期", selection: $date, displayedComponents: .date)
-                                
                             }
                             .frame(height: 30)
                             Section{
                                 DatePicker("時間", selection: $date, displayedComponents: .hourAndMinute)
-                                
                             }
                             .frame(height: 30)
                             
@@ -68,8 +66,6 @@ struct FoodAndDrinkView: View {
                                         .keyboardType(.decimalPad)
                                 }
                             }
-                            
-                            
                         }
                         .listSectionSpacing(15)
                         .frame(width: 385,height: drinkOrFood == "drink" ? 210 : 270)
@@ -79,7 +75,8 @@ struct FoodAndDrinkView: View {
                         Button{
                             if drinkOrFood == "drink" {
                                 viewModel.addDrinkRecord(date: date, value: Int(amountOfWater) ?? 0)
-                                todayRemainDrink -= Int(amountOfWater) ?? 0
+                                amountOfWater = ""
+                                updateRemainingValues()
                             } else if drinkOrFood == "food" {
                                 viewModel.addFoodRecord(date: date, name: nameOfFood, value: Double(amountOfFood) ?? 0)
                                 todayRemainFood -= Double(amountOfFood) ?? 0.0
@@ -121,15 +118,12 @@ struct FoodAndDrinkView: View {
                                                     .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
                                             }
                                             
-                                            //                                                .onAppear{
-                                            //                                                    viewModel.todayDrinkValue()
-                                            //                                                }
-                                            
                                             Text("ml")
                                                 .font(.system(size: 20))
                                                 .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
                                         }
                                     }
+                                    
                                     VStack(alignment: .trailing){
                                         ZStack(alignment: .leading) {
                                             RoundedRectangle(cornerRadius: 10)
@@ -154,6 +148,7 @@ struct FoodAndDrinkView: View {
                             }
                             .padding(EdgeInsets(top: 50, leading: 0, bottom: 20, trailing: 0))
                         }
+                        
                         else if drinkOrFood == "food"{
                             ZStack{
                                 RoundedRectangle(cornerRadius: 10)
@@ -210,7 +205,7 @@ struct FoodAndDrinkView: View {
             .onAppear {
                 checkDataAndUpdateValues()
             }
-            .onChange(of: viewModel.currentPet?.petID) { _ in
+            .onChange(of: viewModel.currentPet?.petID) {
                 checkDataAndUpdateValues()
             }
         }

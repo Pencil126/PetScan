@@ -204,7 +204,7 @@ class FirestoreViewModel: ObservableObject {
     }
     
     func addDrinkRecord(date: Date, value: Int) {
-        guard let pet = currentPet else {
+        guard currentPet != nil else {
             print("No current pet set.")
             return
         }
