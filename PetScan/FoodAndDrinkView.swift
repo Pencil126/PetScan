@@ -16,7 +16,7 @@ struct FoodAndDrinkView: View {
     @State var drinkOrFood: String = "drink"
     @State var nameOfFood: String = ""
     @State var amountOfFood: String = ""
-    @State var todayRemainFood: Double = 300.0
+    @State var todayRemainFood: Double = 0.0
     @State var todayRemainDrink: Int = 0
     @State private var isDataLoaded: Bool = false
     
@@ -223,23 +223,8 @@ struct FoodAndDrinkView: View {
     
     private func updateRemainingValues() {
         todayRemainDrink = 500 - viewModel.todayDrinkValue()
-        // 類似地可以實現食物的計算
+        todayRemainFood = 300 - viewModel.todayFoodValue()
     }
-//    private func saveRecord() {
-//        if let amount = Int(amountOfWater) {
-//            let record = DrinkRecord(time: formattedDate(), value: amount)
-//            drinkRecords.append(record)
-//            if !drinkRecords.isEmpty {
-//                drinkRecords.remove(at: 0)
-//            }
-//        }
-//    }
-//    private func formattedDate() -> String {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "MM/dd"
-//        return formatter.string(from: date)
-//    }
-
     
     private var drinkOrFoodSelectionButtons: some View {
         HStack(spacing: 0) {

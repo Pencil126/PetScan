@@ -167,40 +167,23 @@ class FirestoreViewModel: ObservableObject {
         }
     }
     
-    func todayFoodValue() {
-        let ref = db.collection("PetInfo").document(currentPetObject).collection("food")
-        let todayGMT = Calendar.current.startOfDay(for: Date())
-        let tomorrowGMT = Calendar.current.date(byAdding: .day, value: 1, to: todayGMT)!
-        let today = Calendar.current.date(byAdding: .hour, value: 8, to: todayGMT)!
-        let tomorrow = Calendar.current.date(byAdding: .hour, value: 8, to: tomorrowGMT)!
-        print("Today: \(today), Tomorrow: \(tomorrow)")
-        let limit = 300.0
-        ref.whereField("time", isGreaterThanOrEqualTo: today).whereField("time", isLessThan: tomorrow).getDocuments { (snapshot, error) in
-            if let error = error {
-                print("todayFoodValue Error getting documents: \(error)")
-            } else if let snapshot = snapshot {
-                var totalValue = snapshot.documents.reduce(0) { (sum, document) -> Double in
-                    let data = document.data()
-                    if let entries = data["entries"] as? [[String: Any]] {
-                        // 累加所有符合今天日期的 value
-                        return entries.reduce(sum) { (subSum, entry) -> Double in
-                            if let timestamp = entry["time"] as? Timestamp,
-                               let value = entry["value"] as? Double,
-                               Calendar.current.isDate(timestamp.dateValue(), inSameDayAs: today) {
-                                return subSum + value
-                            }
-                            return subSum
-                        }
-                    }
-                    return sum
-                }
-                print("Total value for today is: \(totalValue)")
-                totalValue = limit - totalValue
-                DispatchQueue.main.async {
-                    self.totalFoodValue = totalValue
-                }
-            }
+    func todayFoodValue() -> Double {
+        guard let pet = currentPet else {
+            print("No current pet set.")
+            return 0
         }
+                
+        let calendar = Calendar.current
+        
+        let todayRecords = pet.food.filter { food in
+            calendar.isDate(food.timestamp, inSameDayAs: Date())
+        }
+        
+        let totalFood = todayRecords.reduce(0) { $0 + $1.value }
+        self.totalFoodValue = totalFood
+        
+        print("todayFoodValue: \(totalFood)")
+        return totalFood
     }
     
     func addDrinkRecord(date: Date, value: Int) {
