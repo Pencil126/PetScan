@@ -150,7 +150,7 @@ struct FoodAndDrinkView: View {
                         else if drinkOrFood == "food"{
                             ZStack{
                                 RoundedRectangle(cornerRadius: 10)
-                                    .frame(width: 350,height: 120)
+                                    .frame(width: 350,height: 170)
                                     .foregroundStyle(backgroundColor)
                                 VStack {
                                     VStack(spacing: 0) {
@@ -163,13 +163,27 @@ struct FoodAndDrinkView: View {
                                                 .font(.system(size: 60))
                                                 .fontWeight(.black)
                                                 .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
-                                            //                                                .onAppear{
-                                            //                                                    viewModel.todayFoodValue()
-                                            //                                                }
                                             
                                             Text("公克")
                                                 .font(.system(size: 20))
                                                 .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
+                                        }
+                                        
+                                        VStack(alignment: .trailing){
+                                            ZStack(alignment: .leading) {
+                                                RoundedRectangle(cornerRadius: 10)
+                                                    .frame(width: 310, height: 35)
+                                                    .foregroundStyle(.white)
+                                                if todayRemainFood <= 0{
+                                                    RoundedRectangle(cornerRadius: 10)
+                                                        .frame(width: 310, height: 35)
+                                                        .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
+                                                }else{
+                                                    RoundedRectangle(cornerRadius: 10)
+                                                        .frame(width: 310*((300-Double(todayRemainFood))/300), height: 35,alignment: .leading)
+                                                        .foregroundStyle(Color(red: 103/255, green: 118/255, blue: 121/255))
+                                                }
+                                            }
                                         }
                                     }
                                 }
