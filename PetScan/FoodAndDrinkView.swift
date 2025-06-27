@@ -47,6 +47,7 @@ struct FoodAndDrinkView: View {
                             if drinkOrFood == "drink"{
                                 Section {
                                     TextField("喝水量", text: $amountOfWater)
+                                        .keyboardType(.decimalPad)
                                 }
                                 .frame(height: 30)
                             }
@@ -81,7 +82,10 @@ struct FoodAndDrinkView: View {
                                 }
                             } else if drinkOrFood == "food" {
                                 viewModel.addFoodRecord(date: date, name: nameOfFood, value: Double(amountOfFood) ?? 0)
-                                todayRemainFood -= Double(amountOfFood) ?? 0.0
+                                amountOfFood = ""
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    updateRemainingValues()
+                                }
                             }
                         }label: {
                             Text("+ 新增")

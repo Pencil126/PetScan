@@ -149,7 +149,18 @@ class FirestoreViewModel: ObservableObject {
     }
 
     func addFoodRecord(date: Date, name: String, value: Double) {
+        guard var pet = currentPet else {
+            print("No current pet set.")
+            return
+        }
+        
+        guard value > 0 else {
+            print("錯誤：熱量必須大於0")
+            return
+        }
+        
         let ref = db.collection("PetInfo").document(currentPetObject)
+        
         let newRecord: [String: Any] = [
                 "time": Timestamp(date: date),
                 "name": name,
@@ -158,11 +169,18 @@ class FirestoreViewModel: ObservableObject {
         
         ref.updateData([
             "food": FieldValue.arrayUnion([newRecord])
-        ]) { error in
+        ]) { [weak self] error in
             if let error = error {
                 print("Error updating document: \(error)")
             } else {
                 print("Document successfully updated")
+                
+                let newFood = Food(timestamp: date, name: name, value: value)
+                DispatchQueue.main.async {
+                    // 重新創建整個 pet 物件來觸發更新
+                    pet.food.append(newFood)
+                    self?.currentPet = pet
+                }
             }
         }
     }
