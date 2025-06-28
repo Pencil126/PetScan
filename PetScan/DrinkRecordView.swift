@@ -46,9 +46,10 @@ struct DrinkRecordView: View {
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
     let selectedColor: Color = Color(red: 103/255, green: 118/255, blue: 121/255)
     
+    @StateObject var viewModel = FirestoreViewModel()
     @State var drinkOrFood: String = "drink"
     @State private var averageValue: Int = 0
-    @Binding var drinkRecords : [DrinkRecord]
+    @State private var drinkRecords: [DrinkRecord] = []
     @State private var isAnimated: Bool = false
     
     var body: some View {
@@ -104,9 +105,15 @@ struct DrinkRecordView: View {
                                 .font(.system(size: 20))
                                 .foregroundColor(selectedColor)
                             
-                            Text("良好")
-                                .font(.system(size: 40))
-                                .foregroundColor(.green)
+                            if(averageValue > 500) {
+                                Text("良好")
+                                    .font(.system(size: 40))
+                                    .foregroundColor(.green)
+                            } else {
+                                Text("不良")
+                                    .font(.system(size: 40))
+                                    .foregroundColor(.red)
+                            }
                         }
                     }
                     .padding(4)
@@ -208,14 +215,12 @@ struct DrinkRecordView: View {
         }
     }
     
-    
     struct ChartView: View {
+        
         let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
         let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
         let selectedColor: Color = Color(red: 103/255, green: 118/255, blue: 121/255)
         @Binding var drinkRecords: [DrinkRecord]
-        
-        
         
         var body: some View {
             Chart {
@@ -235,6 +240,7 @@ struct DrinkRecordView: View {
         
     }
 }
+
 #Preview {
-    TabBarView(tabViewSelection: 4)
+    DrinkRecordView()
 }

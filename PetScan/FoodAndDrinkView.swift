@@ -195,17 +195,16 @@ struct FoodAndDrinkView: View {
                             .padding(EdgeInsets(top: 30, leading: 0, bottom: 20, trailing: 0))
                         }
                         
-//                        NavigationLink{
-//                            DrinkRecordView()
-//                        }label: {
-//                            Text("歷史紀錄")
-//                                .foregroundStyle(.white)
-//                                .frame(width: 350,height: 65)
-//                                .font(.system(size: 24))
-//                                .background(Color(red: 103/255, green: 118/255, blue: 121/255))
-//                                .clipShape(RoundedRectangle(cornerRadius: 30))
-//                        }
-                        
+                        NavigationLink{
+                            DrinkRecordView()
+                        }label: {
+                            Text("歷史紀錄")
+                                .foregroundStyle(.white)
+                                .frame(width: 350,height: 65)
+                                .font(.system(size: 24))
+                                .background(Color(red: 103/255, green: 118/255, blue: 121/255))
+                                .clipShape(RoundedRectangle(cornerRadius: 30))
+                        }
                     }
                     
                     Spacer()

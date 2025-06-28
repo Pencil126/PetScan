@@ -66,10 +66,10 @@ struct HomeView: View {
                     
                     //功能按鍵區塊
                     VStack{
-//                        NavigationLink(destination: DrinkRecordView()){
-//                            Text("食物與喝水量歷史紀錄")
-//                        }
-//                        .buttonStyle(HomeViewButtonStyle())
+                        NavigationLink(destination: DrinkRecordView()){
+                            Text("食物與喝水量歷史紀錄")
+                        }
+                        .buttonStyle(HomeViewButtonStyle())
                         
                         NavigationLink(destination: MedicialHistroyView()){
                             Text("藥物服用歷史紀錄")
