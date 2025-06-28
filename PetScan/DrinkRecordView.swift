@@ -143,8 +143,14 @@ struct DrinkRecordView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .onAppear(perform: {
+                loadWeeklyDrinkRecords()
                 animateChart()
             })
+            .onChange(of: viewModel.currentPet?.petID) {
+                loadWeeklyDrinkRecords()
+                isAnimated = false
+                animateChart()
+            }
         }
     }
     
@@ -162,6 +168,52 @@ struct DrinkRecordView: View {
         }
     }
     
+    private func loadWeeklyDrinkRecords() {
+        guard let currentPet = viewModel.currentPet else {
+            drinkRecords = []
+            averageValue = 0
+            return
+        }
+        
+        let calendar = Calendar.current
+        let today = Date()
+        let oneWeekAgo = calendar.date(byAdding: .day, value: -6, to: today)!
+        
+        // 過濾近一週的飲水記錄
+        let weeklyDrinks = currentPet.drink.filter { drink in
+            drink.timestamp >= oneWeekAgo && drink.timestamp <= today
+        }
+        
+        // 按日期分組並計算每日總和
+        var dailyTotals: [String: Int] = [:]
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd"
+        
+        for drink in weeklyDrinks {
+            let dateString = dateFormatter.string(from: drink.timestamp)
+            dailyTotals[dateString, default: 0] += drink.value
+        }
+        
+        // 為過去7天創建記錄（包括沒有記錄的日期）
+        var records: [DrinkRecord] = []
+        for i in 0..<7 {
+            if let date = calendar.date(byAdding: .day, value: -i, to: today) {
+                let dateString = dateFormatter.string(from: date)
+                let value = dailyTotals[dateString] ?? 0
+                records.append(DrinkRecord(
+                    time: dateString,
+                    value: value,
+                    timestamp: date,
+                    isAnimated: false
+                ))
+            }
+        }
+        
+        // 按日期排序（從最早到最新）
+        drinkRecords = records.sorted { $0.timestamp! < $1.timestamp! }
+        
+        calculateAverage()
+    }
     
     private func calculateAverage() {
         guard !drinkRecords.isEmpty else {
