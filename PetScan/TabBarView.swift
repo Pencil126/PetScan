@@ -8,20 +8,10 @@
 import SwiftUI
 
 struct TabBarView: View {
+    
     let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
     @State public var tabViewSelection = 2
-    
-//    @State private var drinkRecords: [DrinkRecord] = [
-//            DrinkRecord(time: "07/02", value: 600),
-//            DrinkRecord(time: "07/03", value: 650),
-//            DrinkRecord(time: "07/04", value: 680),
-//            DrinkRecord(time: "07/05", value: 620),
-//            DrinkRecord(time: "07/06", value: 780),
-//            DrinkRecord(time: "07/07", value: 700),
-//            DrinkRecord(time: "07/08", value: 710),
-//            DrinkRecord(time: "07/09", value: 650)
-//        ]
     
     var body: some View {
         TabView(selection: $tabViewSelection){
@@ -61,7 +51,7 @@ struct TabBarView: View {
                 .tabItem {
                     VStack{
                         Image(systemName: "pill.fill")
-                        Text("藥物紀錄")
+                        Text("藥物")
                     }
                 }
                 .tag(4)

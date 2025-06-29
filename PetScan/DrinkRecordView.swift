@@ -41,6 +41,38 @@ struct DrinkRecord: Identifiable {
     }
 }
 
+struct FoodRecord: Identifiable {
+    var id = UUID()
+    var time: String
+    var value: Int
+    var timestamp: Date?
+    var isAnimated: Bool = false
+    
+    init(id: UUID = UUID(), time: String, value: Int, timestamp: Date? = nil, isAnimated: Bool) {
+        self.id = id
+        self.time = time
+        self.value = value
+        self.timestamp = timestamp
+        self.isAnimated = isAnimated
+    }
+    
+    init?(from dictionary: [String: Any]) {
+        guard let value = dictionary["value"] as? Int else { return nil }
+
+        if let timestamp = dictionary["time"] as? Timestamp {
+            let date = timestamp.dateValue()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/dd"
+            self.time = formatter.string(from: date)
+            self.timestamp = date
+        } else {
+            return nil
+        }
+
+        self.value = value
+    }
+}
+
 struct DrinkRecordView: View {
     let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
     let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
@@ -50,6 +82,7 @@ struct DrinkRecordView: View {
     @State var drinkOrFood: String = "drink"
     @State private var averageValue: Int = 0
     @State private var drinkRecords: [DrinkRecord] = []
+    @State private var foodRecords: [FoodRecord] = []
     @State private var isAnimated: Bool = false
     
     var body: some View {
@@ -61,63 +94,123 @@ struct DrinkRecordView: View {
                 VStack {
                     drinkOrFoodSelectionButtons
                     
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundStyle(Color(red: 226/255, green: 233/255, blue: 233/255))
-                            .frame(width: 350,height: 350)
-                        VStack{
-                            VStack {
-                                Text("平均每日飲水量")
+                    if drinkOrFood == "drink" {
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundStyle(Color(red: 226/255, green: 233/255, blue: 233/255))
+                                .frame(width: 350,height: 350)
+                            VStack{
+                                VStack {
+                                    Text("平均每日飲水量")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(selectedColor)
+                                    
+                                    HStack {
+                                        Text(String(averageValue))
+                                            .font(.system(size: 60))
+                                            .fontWeight(.black)
+                                            .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
+                                        
+                                        Text("ml")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(selectedColor)
+                                    }
+                                }
+                                .padding()
+                                
+                                DrinkChartView(drinkRecords: $drinkRecords)
+                                    .frame(height: 200)
+                                    .padding(.horizontal)
+                                    .onAppear {
+                                        calculateAverage()
+                                    }
+                            }
+                        }
+                        .padding(4)
+                        
+                        // Drink Status
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundStyle(Color(red: 226/255, green: 233/255, blue: 233/255))
+                                .frame(width: 350,height: 100)
+                            HStack {
+                                Text("近期喝水量狀況")
                                     .font(.system(size: 20))
                                     .foregroundColor(selectedColor)
                                 
-                                HStack {
-                                    Text(String(averageValue))
-                                        .font(.system(size: 60))
-                                        .fontWeight(.black)
-                                        .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
-                                    
-                                    Text("ml")
+                                if(averageValue > 500) {
+                                    Text("良好")
+                                        .font(.system(size: 40))
+                                        .foregroundColor(.green)
+                                } else {
+                                    Text("不良")
+                                        .font(.system(size: 40))
+                                        .foregroundColor(.red)
+                                }
+                            }
+                        }
+                        .padding(4)
+                    } else if drinkOrFood == "food" {
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundStyle(Color(red: 226/255, green: 233/255, blue: 233/255))
+                                .frame(width: 350,height: 350)
+                            VStack{
+                                VStack {
+                                    Text("平均每日食物攝取量")
                                         .font(.system(size: 20))
                                         .foregroundColor(selectedColor)
+                                    
+                                    HStack {
+                                        Text(String(averageValue))
+                                            .font(.system(size: 60))
+                                            .fontWeight(.black)
+                                            .foregroundStyle(Color(red: 207/255, green: 116/255, blue: 65/255))
+                                        
+                                        Text("g")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(selectedColor)
+                                    }
                                 }
-                            }
-                            .padding()
-                            
-                            ChartView(drinkRecords: $drinkRecords)
-                                .frame(height: 200)
-                                .padding(.horizontal)
-                                .onAppear {
-                                    calculateAverage()
-                                }
-                        }
-                    }
-                    .padding(4)
-                    
-                    
-                    // Drink Status
-                    ZStack{
-                        RoundedRectangle(cornerRadius: 10)
-                            .foregroundStyle(Color(red: 226/255, green: 233/255, blue: 233/255))
-                            .frame(width: 350,height: 100)
-                        HStack {
-                            Text("近期喝水量狀況")
-                                .font(.system(size: 20))
-                                .foregroundColor(selectedColor)
-                            
-                            if(averageValue > 500) {
-                                Text("良好")
-                                    .font(.system(size: 40))
-                                    .foregroundColor(.green)
-                            } else {
-                                Text("不良")
-                                    .font(.system(size: 40))
-                                    .foregroundColor(.red)
+                                .padding()
+                                
+                                FoodChartView(foodRecords: $foodRecords)
+                                    .frame(height: 200)
+                                    .padding(.horizontal)
+                                    .onAppear {
+                                        calculateAverage()
+                                    }
                             }
                         }
+                        .padding(4)
+                        
+                        // Drink Status
+                        ZStack{
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundStyle(Color(red: 226/255, green: 233/255, blue: 233/255))
+                                .frame(width: 350,height: 100)
+                            HStack {
+                                Text("近期食物攝取狀況")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(selectedColor)
+                                
+                                if(averageValue > 200 && averageValue <= 400) {
+                                    Text("良好")
+                                        .font(.system(size: 40))
+                                        .foregroundColor(.green)
+                                } else if(averageValue <= 200) {
+                                    Text("過少")
+                                        .font(.system(size: 40))
+                                        .foregroundColor(.red)
+                                } else {
+                                    Text("過多")
+                                        .font(.system(size: 40))
+                                        .foregroundColor(.red)
+                                }
+                            }
+                        }
+                        .padding(4)
                     }
-                    .padding(4)
-                    
                     
                     // Add Record Button
                     NavigationLink{
@@ -143,11 +236,16 @@ struct DrinkRecordView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .onAppear(perform: {
-                loadWeeklyDrinkRecords()
+                loadWeeklyRecords()
                 animateChart()
             })
             .onChange(of: viewModel.currentPet?.petID) {
-                loadWeeklyDrinkRecords()
+                loadWeeklyRecords()
+                isAnimated = false
+                animateChart()
+            }
+            .onChange(of: drinkOrFood) {
+                calculateAverage()
                 isAnimated = false
                 animateChart()
             }
@@ -158,14 +256,30 @@ struct DrinkRecordView: View {
         guard !isAnimated else { return }
         isAnimated = true
         
-        $drinkRecords.enumerated().forEach{index , element in
-            let delay = Double(index) * 0.2
-            DispatchQueue.main.asyncAfter(deadline: .now() + delay){
-                withAnimation(.easeInOut(duration: 10)){
-                    element.wrappedValue.isAnimated = true
+        if drinkOrFood == "drink" {
+            $drinkRecords.enumerated().forEach{index , element in
+                let delay = Double(index) * 0.2
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay){
+                    withAnimation(.easeInOut(duration: 3)){
+                        element.wrappedValue.isAnimated = true
+                    }
+                }
+            }
+        } else {
+            $foodRecords.enumerated().forEach{index , element in
+                let delay = Double(index) * 0.2
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay){
+                    withAnimation(.easeInOut(duration: 3)){
+                        element.wrappedValue.isAnimated = true
+                    }
                 }
             }
         }
+    }
+    
+    private func loadWeeklyRecords() {
+        loadWeeklyDrinkRecords()
+        loadWeeklyFoodRecords()
     }
     
     private func loadWeeklyDrinkRecords() {
@@ -215,16 +329,70 @@ struct DrinkRecordView: View {
         calculateAverage()
     }
     
-    private func calculateAverage() {
-        guard !drinkRecords.isEmpty else {
-            averageValue = 0
+    private func loadWeeklyFoodRecords() {
+        guard let currentPet = viewModel.currentPet else {
+            foodRecords = []
             return
         }
         
-        let total = drinkRecords.reduce(0) { $0 + $1.value }
-        let average = Double(total) / Double(drinkRecords.count)
+        let calendar = Calendar.current
+        let today = Date()
+        let oneWeekAgo = calendar.date(byAdding: .day, value: -6, to: today)!
         
-        averageValue = Int(average.rounded())
+        // 過濾近一週的食物記錄
+        let weeklyFoods = currentPet.food.filter { food in
+            food.timestamp >= oneWeekAgo && food.timestamp <= today
+        }
+        
+        // 按日期分組並計算每日總和（轉換 Double 為 Int）
+        var dailyTotals: [String: Int] = [:]
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd"
+        
+        for food in weeklyFoods {
+            let dateString = dateFormatter.string(from: food.timestamp)
+            dailyTotals[dateString, default: 0] += Int(food.value)
+        }
+        
+        // 為過去7天創建記錄（包括沒有記錄的日期）
+        var records: [FoodRecord] = []
+        for i in 0..<7 {
+            if let date = calendar.date(byAdding: .day, value: -i, to: today) {
+                let dateString = dateFormatter.string(from: date)
+                let value = dailyTotals[dateString] ?? 0
+                records.append(FoodRecord(
+                    time: dateString,
+                    value: value,
+                    timestamp: date,
+                    isAnimated: false
+                ))
+            }
+        }
+        
+        // 按日期排序（從最早到最新）
+        foodRecords = records.sorted { $0.timestamp! < $1.timestamp! }
+    }
+    
+    private func calculateAverage() {
+        if drinkOrFood == "drink" {
+            guard !drinkRecords.isEmpty else {
+                averageValue = 0
+                return
+            }
+            
+            let total = drinkRecords.reduce(0) { $0 + $1.value }
+            let average = Double(total) / Double(drinkRecords.count)
+            averageValue = Int(average.rounded())
+        } else {
+            guard !foodRecords.isEmpty else {
+                averageValue = 0
+                return
+            }
+            
+            let total = foodRecords.reduce(0) { $0 + $1.value }
+            let average = Double(total) / Double(foodRecords.count)
+            averageValue = Int(average.rounded())
+        }
     }
     
     private var drinkOrFoodSelectionButtons: some View {
@@ -267,7 +435,7 @@ struct DrinkRecordView: View {
         }
     }
     
-    struct ChartView: View {
+    struct DrinkChartView: View {
         
         let themeColor: Color = Color(red: 149/255, green: 172/255, blue: 175/255)
         let backgroundColor: Color = Color(red: 237/255, green: 237/255, blue: 237/255)
@@ -290,6 +458,25 @@ struct DrinkRecordView: View {
             .frame(width: 300,height: 200)
         }
         
+    }
+    
+    struct FoodChartView: View {
+        let selectedColor: Color = Color(red: 103/255, green: 118/255, blue: 121/255)
+        @Binding var foodRecords: [FoodRecord]
+        
+        var body: some View {
+            Chart {
+                ForEach(foodRecords) { record in
+                    BarMark(
+                        x: .value("Day", record.time),
+                        y: .value("Food", record.isAnimated ? Double(record.value) : 0)
+                    )
+                }
+            }
+            .foregroundStyle(selectedColor)
+            .chartYScale(domain: 0...600) // 食物的量級範圍
+            .frame(width: 300,height: 200)
+        }
     }
 }
 
