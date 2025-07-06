@@ -23,6 +23,7 @@ struct TabBarView: View {
                     }
                 }
                 .tag(0)
+            
             FoodAndDrinkView()
                 .tabItem {
                     VStack{
@@ -31,6 +32,7 @@ struct TabBarView: View {
                     }
                 }
                 .tag(1)
+            
             HomeView()
                 .tabItem {
                     VStack{
@@ -39,6 +41,7 @@ struct TabBarView: View {
                     }
                 }
                 .tag(2)
+            
             QuestionsView()
                 .tabItem {
                     VStack{
@@ -47,6 +50,7 @@ struct TabBarView: View {
                     }
                 }
                 .tag(3)
+            
             EnterMedicineView()
                 .tabItem {
                     VStack{

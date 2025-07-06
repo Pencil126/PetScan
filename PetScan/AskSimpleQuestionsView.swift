@@ -19,7 +19,6 @@ struct CustomToggle: ToggleStyle {
                 configuration.isOn = false
             }
             
-            
             ZStack{
                 UnevenRoundedRectangle(cornerRadii: RectangleCornerRadii(bottomTrailing: 10, topTrailing: 10))
                     .frame(width: 40, height: 37)

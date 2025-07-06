@@ -124,7 +124,6 @@
 				F776208E2C36BCD00094024D /* HospitalMapView.swift */,
 				F7ED45BD2C22F10D0096115B /* HomeView.swift */,
 				F776209A2C37DA060094024D /* EnterMedicineView.swift */,
-				F77620942C36E7760094024D /* PetList.swift */,
 				F72370B12C1B1050002199B1 /* SelectPetView.swift */,
 				D675F3CF2C38EB5F00DA3350 /* PetScanDogAugmentation.mlmodel */,
 				D606CF892C16F74100CD44D9 /* Assets.xcassets */,
@@ -164,6 +163,7 @@
 			children = (
 				D615D38C2C2C0D85007039EE /* UsersPet.swift */,
 				D615D38E2C2C0E07007039EE /* PetInfo.swift */,
+				F77620942C36E7760094024D /* PetList.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -213,11 +213,13 @@
 			};
 			buildConfigurationList = D606CF7D2C16F74000CD44D9 /* Build configuration list for PBXProject "PetScan" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = "zh-Hant";
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hant",
+				"zh-Hans",
 			);
 			mainGroup = D606CF792C16F74000CD44D9;
 			packageReferences = (
@@ -413,7 +415,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				INFOPLIST_KEY_NSCameraUsageDescription = "需要使用相機來拍攝照片";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要訪問照片庫來選擇圖片";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要透過照片庫來選擇圖片";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -426,7 +428,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = Ruxiu0409.MAIC2024.PetScan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -451,7 +453,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.medical";
 				INFOPLIST_KEY_NSCameraUsageDescription = "需要使用相機來拍攝照片";
-				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要訪問照片庫來選擇圖片";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要透過照片庫來選擇圖片";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -464,7 +466,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = Ruxiu0409.MAIC2024.PetScan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
